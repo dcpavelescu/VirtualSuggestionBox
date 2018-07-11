@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AddNewSuggestionComponent } from './addNewSuggestion/add-new-suggestion.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { SuggestionDetailsComponent } from './suggestion-details/suggestion-details.component';
 
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     AddNewSuggestionComponent,
-    HomeComponent
+    HomeComponent,
+    SuggestionDetailsComponent
   ],
   imports: [
     BrowserModule,
