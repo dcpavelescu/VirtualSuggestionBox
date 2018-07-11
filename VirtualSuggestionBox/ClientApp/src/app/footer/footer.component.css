@@ -3,11 +3,16 @@
 }
 
 .footer {
+  bottom:0px;
+  position:absolute;
+  width:100%;
+
   text-align: center;
   background-color: saddlebrown;
   font-size: 20px;
   line-height: 65px;
-  border-radius: 20px;
+ // border-radius: 20px;
   margin-right: auto;
   margin-left: auto;
 }
+

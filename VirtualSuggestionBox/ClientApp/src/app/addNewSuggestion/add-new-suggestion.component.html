@@ -1,33 +1,53 @@
 <!-- header -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 
 <ul>
   <div class="container">
-    <h1>Please fill to add your suggestion!</h1>
+    <h1>Add a suggestion</h1>
     <div class="text-and-textareas">
     <br />   
-      <p style="font: 1em sans-serif;">
-        <b>Subject</b>
-      </p>
-      <textarea cols="100"></textarea>
+    <form>
+      <div class="form-group">
+        <label for="usr">Subject:</label>
+        <input type="text" class="form-control" id="sub">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Improvement:</label>
+        <input type="text" class="form-control" id="imp">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Solution:</label>
+        <input type="text" class="form-control" id="sol">
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="sel1">Category</label>
+        <select class="form-control" id="sel1">
+          <option disabled>Select one category</option>
+          <option value="Company">Company</option>
+          <option value="Products">Products</option>
+          <option value="Remuneration">Remuneration</option>
+        </select>
+      </div>
+      <fieldset class="rating">
+        <input type="radio" id="star5" name="rating" value="5" />
+        <label for="star5">5 stars</label>
+        <input type="radio" id="star4" name="rating" value="4" />
+        <label for="star4">4 stars</label>
+        <input type="radio" id="star3" name="rating" value="3" />
+        <label for="star3">3 stars</label>
+        <input type="radio" id="star2" name="rating" value="2" />
+        <label for="star2">2 stars</label>
+        <input type="radio" id="star1" name="rating" value="1" />
+        <label for="star1">1 star</label>
+      </fieldset>
+    </form>
 
 
-      <p>Category:</p>
-      <select>
-        <option disabled>Select one category</option>
-        <option value="Company">Company</option>
-        <option value="Products">Products</option>
-        <option value="Remuneration">Remuneration</option>
-      </select>
-
-      <br>
-      <br>
-      <br>
-      <br>
-
-      <p style="font: 1em sans-serif;">Suggestion</p>
-      <textarea rows="5" cols="100"></textarea>
-      <br>
-      <br>
       <button type="button" class="button"><span><a routerLink="/home">Submit</a></span></button>
     </div>
   </div>

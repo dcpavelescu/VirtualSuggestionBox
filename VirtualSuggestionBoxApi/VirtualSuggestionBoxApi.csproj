@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Repositories\" />
     <Folder Include="Storages\" />
     <Folder Include="wwwroot\" />

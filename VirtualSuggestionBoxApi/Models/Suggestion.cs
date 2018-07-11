@@ -8,8 +8,8 @@ namespace VirtualSuggestionBoxApi.Models
 {
     public class Suggestion
     {
-        [Key]
-        private int SuggestionId { get; set; }
+       
+        private int SuggestionIndex { get; set; }
         private String Improvement { get; set; }
         private String Solution { get; set; }
         private String EmployeeId { get; set; }
