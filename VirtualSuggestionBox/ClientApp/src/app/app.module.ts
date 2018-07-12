@@ -14,11 +14,13 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryComponent } from './category/category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegistrationComponent } from './registration/registration.component';
 
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'registration', component: RegistrationComponent }
 ];
 
 @NgModule({
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     SuggestionsViewComponent,
     LoginComponent,
     DashboardComponent,
-    CategoryComponent
+    CategoryComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
