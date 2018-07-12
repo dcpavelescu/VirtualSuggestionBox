@@ -10,9 +10,14 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SuggestionDetailsComponent } from './suggestion-details/suggestion-details.component';
 import { SuggestionsViewComponent } from './suggestions-view/suggestions-view.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CategoryComponent } from './category/category.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
 ];
 
@@ -24,11 +29,16 @@ const appRoutes: Routes = [
     AddNewSuggestionComponent,
     HomeComponent,
     SuggestionDetailsComponent,
-    SuggestionsViewComponent
+    SuggestionsViewComponent,
+    LoginComponent,
+    DashboardComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

@@ -9,16 +9,11 @@ namespace VirtualSuggestionBoxApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SuggestionController : ControllerBase
+    public class HomeController : ControllerBase
     {
-        /*
-        public ActionResult View
-        {
-            get
-            {
-              //  return new View("~/Index.cshtml");
-            }
-        }
-        */
+      //  public IActionResult Index()
+    //    {
+     //       return View();
+     //   }
     }
 }
