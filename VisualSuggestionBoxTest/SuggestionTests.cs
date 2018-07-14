@@ -17,12 +17,14 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestSuggestionSaveInMemory()
         {
+            /* nu exista SuggestionInMemory
             SuggestionInMemory suggestionInMemory = new SuggestionInMemory();
             suggestionInMemory.dictionary.Add("id1", new VirtualSuggestionBoxApi.Models.Suggestion("dasdsad", "dssdsa", "employee1"));
             suggestionInMemory.dictionary.Add("id2", new VirtualSuggestionBoxApi.Models.Suggestion("ggdgd", "fgfd", "employee1"));
             suggestionInMemory.dictionary.Add("id3", new VirtualSuggestionBoxApi.Models.Suggestion("gfdgd", "gfgd", "employee1"));
 
             Assert.AreEqual(suggestionInMemory.dictionary.Count, 3);
+            */
         }
 
     }
