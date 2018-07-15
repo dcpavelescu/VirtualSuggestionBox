@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Protocols;
 using VirtualSuggestionBoxApi.Models;
 using MongoDB.Bson;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Authentication;
 
 namespace VirtualSuggestionBoxApi
 {
@@ -20,7 +21,35 @@ namespace VirtualSuggestionBoxApi
             IMongoDatabase _dbS;
 
         public IMongoDatabase _database;
-            public MongoDBStorage()       
+        public MongoDBStorage()
+        {
+
+            var MongoDatabaseName = "Account";//Configuration["MongoDBOption:Database"];
+            var MongoDatabaseNameSuggestion = "Suggestion";
+            var MongoUsername = "";
+            var MongoPassword = "";
+            var MongoPort = 27017;
+            var MongoHost = "localhost";
+
+            var credential = MongoCredential.CreateMongoCRCredential
+                            (MongoDatabaseName,
+                             MongoUsername,
+                             MongoPassword);
+
+           // var settings = new MongoClientSettings
+         //   {
+          //      Credentials = new[] { credential },
+         //       Server = new MongoServerAddress(MongoHost, Convert.ToInt32(MongoPort))
+        //    };
+            MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl("mongodb://localhost:27017/Account"));
+            settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+            _client = new MongoClient(settings);
+            //  _server = _client.GetServer();
+            _db = _client.GetDatabase(MongoDatabaseName); //_client
+            _db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait();
+            _dbS = _client.GetDatabase(MongoDatabaseNameSuggestion);
+        }
+        public MongoDBStorage(MongoClient client)       
             {
 
                 var MongoDatabaseName = "Account";//Configuration["MongoDBOption:Database"];
@@ -42,8 +71,8 @@ namespace VirtualSuggestionBoxApi
                 };
                 _client = new MongoClient(settings);
               //  _server = _client.GetServer();
-                _db = _client.GetDatabase(MongoDatabaseName);
-                _dbS = _client.GetDatabase(MongoDatabaseNameSuggestion);
+                _db = client.GetDatabase(MongoDatabaseName); //_client
+                _dbS = client.GetDatabase(MongoDatabaseNameSuggestion);
         }
 
         public IEnumerable<Account> GetAccounts()

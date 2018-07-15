@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace VirtualSuggestionBoxApi.Models
         private string accessLevel { get; set; }
         private string firstName { get; set; }
         private string secondName { get; set; }
-
+        [BsonExtraElements]
+        public BsonDocument CatchAll { get; set; }
     }
 }

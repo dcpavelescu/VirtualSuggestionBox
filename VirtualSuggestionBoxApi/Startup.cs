@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using VirtualSuggestionBoxApi.Controllers;
+using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi
 {
@@ -31,8 +33,15 @@ namespace VirtualSuggestionBoxApi
                 MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(Configuration["MongoDB:ConnectionString"]));
                 settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
                 services.AddSingleton<IMongoClient, MongoClient>(client => new MongoClient(settings));
+               // services.AddTransient(typeof(Account), typeof(MongoDBStorage));
 
             }
+            else
+            {
+                services.AddSingleton(typeof(Account), typeof(MongoDBStorage));
+            }
+            
+            services.AddTransient(typeof(MongoDBStorage), typeof(MongoDBStorage));
 
             services.AddSingleton<IConfiguration>(Configuration);
 

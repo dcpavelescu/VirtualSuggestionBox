@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using VirtualSuggestionBoxApi.Storages;
 using VirtualSuggestionBoxApi.Controllers;
+using MongoDB.Bson;
+using VirtualSuggestionBoxApi;
 
 namespace VisualSuggestionBoxTest
 {
@@ -26,8 +28,11 @@ namespace VisualSuggestionBoxTest
 
             Assert.AreEqual(suggestionInMemory.dictionary.Count, 3);
             */
-            AccountController a1 = new AccountController();
-            System.Diagnostics.Debug.WriteLine(a1.Get());
+            //  AccountController a1 = new AccountController();
+            //  System.Diagnostics.Debug.WriteLine(a1.Get(ObjectId.Parse("5b4a61e8c55178134c79a7c5")));
+            var _db = new MongoDBStorage();
+            Assert.IsNotNull(_db.GetAccounts());
+            System.Diagnostics.Debug.WriteLine(_db.GetAccounts());
         }
 
     }
