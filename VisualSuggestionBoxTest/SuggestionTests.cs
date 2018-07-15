@@ -2,6 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using VirtualSuggestionBoxApi.Storages;
+using VirtualSuggestionBoxApi.Controllers;
 
 namespace VisualSuggestionBoxTest
 {
@@ -25,6 +26,8 @@ namespace VisualSuggestionBoxTest
 
             Assert.AreEqual(suggestionInMemory.dictionary.Count, 3);
             */
+            AccountController a1 = new AccountController();
+            System.Diagnostics.Debug.WriteLine(a1.Get());
         }
 
     }

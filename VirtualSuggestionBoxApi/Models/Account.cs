@@ -24,9 +24,10 @@ namespace VirtualSuggestionBoxApi.Models
     public class Account
     {
         public ObjectId Id { get; set; }
-        private string username { get; set; }
-        private string password { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
         private string email { get; set; }
+
         private string rDate { get; set; }
         private string accessLevel { get; set; }
         private string firstName { get; set; }

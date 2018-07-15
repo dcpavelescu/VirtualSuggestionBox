@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi.Controllers
@@ -18,13 +20,31 @@ namespace VirtualSuggestionBoxApi.Controllers
             _dbContext = new MongoContext();
         }
 
-        // GET: api/Account
-      //  [HttpGet]
-    //    public IEnumerable<string> Get()
-    //    {
-    //        var AccountDetails = _dbContext._database.GetCollection<Account>("Account"); //.GetCollection("Dd").ToList();
-    //       return;
-   //     }
+       //  GET: api/Account
+        [HttpGet]
+        public async Task<List<Account>> Get()
+        {
+            var response = new List<Account>();
+            var user = Builders<Account>.Filter.Eq(x => x.username, "rares");
+            var pw = Builders<Account>.Filter.Eq(x => x.password, "test");
+            var query = Builders<Account>.Filter.Or(user, pw);
+            var AccountDetails =await  _dbContext._database.GetCollection<Account>("Account").FindAsync(query);//;.Result.ToList(); //.GetCollection("Dd").ToList();
+                                                                                                                                       //  if (AccountDetails.Id == null)
+                                                                                                                                       //       AccountDetails.Id = ObjectId.GenerateNewId().ToString();
+
+            // AccountDetails.ReplaceOneAsync(x => x.Id.Equals(suggestion.Id), suggestion, new UpdateOptions
+            //  {
+            //      IsUpsert = true
+            //  });
+            while (await AccountDetails.MoveNextAsync())
+            {
+                response.AddRange(AccountDetails.Current);
+            }
+
+            return response;
+            //return AccountDetails;
+        }
+
 
         // GET: api/Account/5
         [HttpGet("{id}", Name = "Get")]
