@@ -14,63 +14,76 @@ namespace VirtualSuggestionBoxApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        MongoContext _dbContext;
+        MongoDBStorage _db;
         public AccountController()
         {
-            _dbContext = new MongoContext();
+            _db = new MongoDBStorage();
         }
 
        //  GET: api/Account
         [HttpGet]
-        public async Task<List<Account>> Get()
+        public IEnumerable<Account> Get()
         {
+            /*
             var response = new List<Account>();
             var user = Builders<Account>.Filter.Eq(x => x.username, "rares");
             var pw = Builders<Account>.Filter.Eq(x => x.password, "test");
             var query = Builders<Account>.Filter.Or(user, pw);
             var AccountDetails =await  _dbContext._database.GetCollection<Account>("Account").FindAsync(query);//;.Result.ToList(); //.GetCollection("Dd").ToList();
-                                                                                                                                       //  if (AccountDetails.Id == null)
-                                                                                                                                       //       AccountDetails.Id = ObjectId.GenerateNewId().ToString();
-
-            // AccountDetails.ReplaceOneAsync(x => x.Id.Equals(suggestion.Id), suggestion, new UpdateOptions
-            //  {
-            //      IsUpsert = true
-            //  });
-            while (await AccountDetails.MoveNextAsync())
-            {
-                response.AddRange(AccountDetails.Current);
-            }
-
-            return response;
-            //return AccountDetails;
+              */                                                                                                                     
+            return _db.GetAccounts(); 
         }
 
 
         // GET: api/Account/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public ObjectResult Get(ObjectId id)
         {
-            return "value";
+            var account = _db.GetAccount(id);
+            if (account == null)
+            {
+                return NotFound("not found!");
+            }
+            return new ObjectResult(account);
         }
 
         // POST: api/Account
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Account a)
         {
-
+            _db.Create(a);
+            return new OkObjectResult(a);
 
         }
 
         // PUT: api/Account/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(ObjectId id, [FromBody] Account a)
         {
+            var recId = id;
+            var account = _db.GetAccount(recId);
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            _db.Update(recId, a);
+            return new OkResult();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(ObjectId id)
         {
+            var account = _db.GetAccount(id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            _db.Remove(account.Id);
+            return new OkResult();
+        
         }
     }
 }

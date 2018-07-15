@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
+using MongoDB.Bson;
 
 namespace VirtualSuggestionBoxApi.Models
 {
     public class Suggestion
     {
 
-        private String SuggestionID;
+        public ObjectId SuggestionID;
         private String Improvement;
         private String Solution;
         private String EmployeeID;
@@ -22,12 +23,12 @@ namespace VirtualSuggestionBoxApi.Models
 
         //generates an unique ID for Suggestion
         static object locker = new object();
-        static string GenerateUniqueID()
+        static ObjectId GenerateUniqueID()
         {
             lock (locker)
             {
                 Thread.Sleep(100);
-                return DateTime.Now.ToString("yyyyMMddHHmmssf");
+                return ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
             }
         }
 
@@ -82,7 +83,7 @@ namespace VirtualSuggestionBoxApi.Models
 
         public String getID()
         {
-            return SuggestionID;
+            return  SuggestionID.ToString();
         }
 
 
