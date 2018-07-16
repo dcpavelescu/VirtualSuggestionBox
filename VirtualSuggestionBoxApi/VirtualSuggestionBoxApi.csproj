@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Connected Services\" />
     <Folder Include="Views\" />
-    <Folder Include="Repositories\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

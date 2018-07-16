@@ -23,12 +23,12 @@ namespace VirtualSuggestionBoxApi.Models
 
         //generates an unique ID for Suggestion
         static object locker = new object();
-        static ObjectId GenerateUniqueID()
+        public void GenerateUniqueID()
         {
             lock (locker)
             {
                 Thread.Sleep(100);
-                return ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
+                this.SuggestionID =  ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
             }
         }
 
@@ -37,24 +37,10 @@ namespace VirtualSuggestionBoxApi.Models
         {
             Ratings = new List<Rate>();
             Category = new List<String>();
-            SuggestionID = GenerateUniqueID();
             Improvement = improvement;
             Solution = solution;
             EmployeeID = employeeID;
             Date = DateTime.Now;
-        }
-
-
-        //calculates the average rating
-        public Double averageRate()
-        {
-            double avg = 0;
-            foreach (Rate r in Ratings)
-            {
-                avg += r.getScore();
-            }
-            avg /= Ratings.Count();
-            return avg;
         }
 
         public void addRate(Rate r)
@@ -62,9 +48,16 @@ namespace VirtualSuggestionBoxApi.Models
             Ratings.Add(r);
         }
 
-        public void setAvgRate(Double avg)
+        //calculates the average rating
+        public void setAvgRate()
         {
-            avgRate = avg;
+            double media = 0;
+            foreach (Rate r in Ratings)
+            {
+                media += r.getScore();
+            }
+            media /= Ratings.Count();
+            this.avgRate = media;
         }
 
         public double getAvgRate()
@@ -81,11 +74,19 @@ namespace VirtualSuggestionBoxApi.Models
             return EmployeeID;
         }
 
+        public void setEmployeeId(String newId)
+        {
+            this.EmployeeID = newId;
+        }
+
         public String getID()
         {
             return  SuggestionID.ToString();
         }
 
-
+        public List<Rate> getRateList()
+        {
+            return Ratings;
+        }
     }
 }
