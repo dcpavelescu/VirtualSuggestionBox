@@ -7,24 +7,53 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="%2a%2a\**" />
     <Compile Remove=".vs\**" />
     <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
+    <Content Remove="%2a%2a\**" />
     <Content Remove=".vs\**" />
     <Content Remove="bin\**" />
     <Content Remove="obj\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
     <EmbeddedResource Remove=".vs\**" />
     <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="obj\**" />
+    <None Remove="%2a%2a\**" />
     <None Remove=".vs\**" />
     <None Remove="bin\**" />
     <None Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="%2a%2a/%2a.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="%2a%2a\%2a.config" />
+    <Content Remove="%2a%2a\%2a.cshtml" />
+    <Content Remove="%2a%2a\%2a.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="%2a%2a/%2a" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
+
+  <!--
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  -->
 
   <ItemGroup>
     <Content Include="appsettings.Development.json" />
@@ -53,23 +82,63 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\dist\out-tsc\e2e\src\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\addNewSuggestion\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\footer\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\header\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\home\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\suggestion-details\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\suggestions-view\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\environments\" />
-    <Folder Include="Connected Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="ClientApp\.editorconfig" />
     <None Include="ClientApp\.gitignore" />
     <None Include="ClientApp\e2e\protractor.conf.js" />
     <None Include="ClientApp\e2e\src\app.e2e-spec.ts" />
     <None Include="ClientApp\e2e\src\app.po.ts" />
+    <None Include="ClientApp\src\app\addNewSuggestion\add-new-suggestion.component.css" />
+    <None Include="ClientApp\src\app\addNewSuggestion\add-new-suggestion.component.html" />
+    <None Include="ClientApp\src\app\addNewSuggestion\add-new-suggestion.component.spec.ts" />
+    <None Include="ClientApp\src\app\addNewSuggestion\add-new-suggestion.component.ts" />
+    <None Include="ClientApp\src\app\app-routing.module.spec.ts" />
+    <None Include="ClientApp\src\app\app-routing.module.ts" />
+    <None Include="ClientApp\src\app\app.component.css" />
+    <None Include="ClientApp\src\app\app.component.html" />
+    <None Include="ClientApp\src\app\app.component.spec.ts" />
+    <None Include="ClientApp\src\app\app.component.ts" />
+    <None Include="ClientApp\src\app\app.module.ts" />
+    <None Include="ClientApp\src\app\category\category.component.css" />
+    <None Include="ClientApp\src\app\category\category.component.html" />
+    <None Include="ClientApp\src\app\category\category.component.spec.ts" />
+    <None Include="ClientApp\src\app\category\category.component.ts" />
+    <None Include="ClientApp\src\app\dashboard\dashboard.component.css" />
+    <None Include="ClientApp\src\app\dashboard\dashboard.component.html" />
+    <None Include="ClientApp\src\app\dashboard\dashboard.component.spec.ts" />
+    <None Include="ClientApp\src\app\dashboard\dashboard.component.ts" />
+    <None Include="ClientApp\src\app\footer\footer.component.css" />
+    <None Include="ClientApp\src\app\footer\footer.component.html" />
+    <None Include="ClientApp\src\app\footer\footer.component.spec.ts" />
+    <None Include="ClientApp\src\app\footer\footer.component.ts" />
+    <None Include="ClientApp\src\app\header\header.component.css" />
+    <None Include="ClientApp\src\app\header\header.component.html" />
+    <None Include="ClientApp\src\app\header\header.component.spec.ts" />
+    <None Include="ClientApp\src\app\header\header.component.ts" />
+    <None Include="ClientApp\src\app\home\home.component.css" />
+    <None Include="ClientApp\src\app\home\home.component.html" />
+    <None Include="ClientApp\src\app\home\home.component.spec.ts" />
+    <None Include="ClientApp\src\app\home\home.component.ts" />
+    <None Include="ClientApp\src\app\login\login.component.css" />
+    <None Include="ClientApp\src\app\login\login.component.html" />
+    <None Include="ClientApp\src\app\login\login.component.spec.ts" />
+    <None Include="ClientApp\src\app\login\login.component.ts" />
+    <None Include="ClientApp\src\app\registration\registration.component.css" />
+    <None Include="ClientApp\src\app\registration\registration.component.html" />
+    <None Include="ClientApp\src\app\registration\registration.component.spec.ts" />
+    <None Include="ClientApp\src\app\registration\registration.component.ts" />
+    <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.css" />
+    <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.html" />
+    <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.spec.ts" />
+    <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.ts" />
+    <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.css" />
+    <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.html" />
+    <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.spec.ts" />
+    <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.ts" />
+    <None Include="ClientApp\src\app\_models\user.ts" />
+    <None Include="ClientApp\src\app\_services\authentication.service.ts" />
+    <None Include="ClientApp\src\assets\.gitkeep" />
+    <None Include="ClientApp\src\environments\environment.prod.ts" />
+    <None Include="ClientApp\src\environments\environment.ts" />
   </ItemGroup>
 
 </Project>

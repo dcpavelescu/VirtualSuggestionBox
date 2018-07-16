@@ -9,8 +9,9 @@ export class AuthenticationService {
     constructor(private http: HttpClient) { }
  
     login(username: string, password: string) {
-        return this.http.post<any>('/api/authenticate', { username: username, password: password })
-            .map(user => {
+      return this.http.post<any>('/api/authenticate', { username: username, password: password });
+          /*
+           .map(user => {
                 if (user && user.token) {
                     // local storage
                     localStorage.setItem('currentUser', JSON.stringify(user));
@@ -18,6 +19,7 @@ export class AuthenticationService {
  
                 return user;
             });
+            */
     }
  
     logout() {
