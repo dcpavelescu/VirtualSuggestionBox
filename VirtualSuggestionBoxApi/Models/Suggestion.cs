@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
     public class Suggestion
     {
-
+        [BsonId]
         public ObjectId SuggestionID;
         private String Improvement;
         private String Solution;
-        private String EmployeeID;
+        [BsonId]
+        private ObjectId EmployeeID;
         private DateTime Date;
         private List<Rate> Ratings;
         private List<String> Category;
@@ -27,13 +29,22 @@ namespace VirtualSuggestionBoxApi.Models
         {
             lock (locker)
             {
-                Thread.Sleep(100);
-                this.SuggestionID =  ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
+                //   Thread.Sleep(100);
+                this.SuggestionID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
+                this.EmployeeID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
             }
         }
 
+        public Suggestion(string improvement, string solution)
+        {
+            Ratings = new List<Rate>();
+            Category = new List<String>();
+            Improvement = improvement;
+            Solution = solution;
+            Date = DateTime.Now;
+        }
 
-        public Suggestion(string improvement, string solution, string employeeID)
+        public Suggestion(string improvement, string solution, ObjectId employeeID)
         {
             Ratings = new List<Rate>();
             Category = new List<String>();
@@ -69,12 +80,12 @@ namespace VirtualSuggestionBoxApi.Models
             return Category;
         }
 
-        public String getEmployeeID()
+        public ObjectId getEmployeeID()
         {
             return EmployeeID;
         }
 
-        public void setEmployeeId(String newId)
+        public void setEmployeeId(ObjectId newId)
         {
             this.EmployeeID = newId;
         }

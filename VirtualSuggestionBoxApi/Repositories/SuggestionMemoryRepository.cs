@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,13 +46,13 @@ namespace VirtualSuggestionBoxApi.Repositories
         }
 
         //returns a key(ID) list by employeeID- all suggestions posted by that employee
-        public List<String> ViewByEmployee(String EmployeeID)
+        public List<String> ViewByEmployee(ObjectId EmployeeID)
         {
             List<String> list = new List<String>();
             foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
-                String ID = entry.Value.getEmployeeID();
-                if (String.Compare(ID, EmployeeID) == 0)
+                ObjectId ID = entry.Value.getEmployeeID();
+                if (String.Compare(ID.ToString(), EmployeeID.ToString()) == 0)
                     list.Add(entry.Key);
             }
             return list;
