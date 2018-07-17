@@ -6,7 +6,7 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi.Storages
 {
-    public class SuggestionMemory
+    public class SuggestionMemory //: IStorage
     {
         //key: suggestionID , value: suggestion s 
         public Dictionary<String, Suggestion> dictionary = new Dictionary<String, Suggestion>();

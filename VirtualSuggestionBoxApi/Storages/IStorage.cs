@@ -1,13 +1,17 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi
 {
-    interface IStorage
+    public interface IStorage<T>
     {
+        /*
         void CreateStorage();
         void EnumElements();
         void OpenStorage();
@@ -19,12 +23,13 @@ namespace VirtualSuggestionBoxApi
         void Update();
         void Remove();
         void Create();
-
-        void Add(Suggestion s);
-        void Remove(String ID);
-        Suggestion Get(String ID);
-        void Update(Suggestion s);
-        List<String> GetAll();
+        */
+        T Create(T s);
+        void Remove(ObjectId ID);
+        T GetObject(ObjectId ID);
+        void Update(ObjectId id, T a);
+        IEnumerable<T> Get(); //<--GetAll()
+        //void Add();
 
     }
 }

@@ -14,10 +14,10 @@ namespace VirtualSuggestionBoxApi.Controllers
     public class SuggestionController : ControllerBase
     {
 
-        MongoDBStorage _db;
+        MongoDBStorage<Suggestion> _db;
         public SuggestionController()
         {
-            _db = new MongoDBStorage();
+            _db = new MongoDBStorage<Suggestion>();
         }
 
         //  GET: api/Suggestion
@@ -25,7 +25,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         public IEnumerable<Suggestion> Get()
         {
 
-            return _db.GetSuggestions();
+            return _db.Get();
         }
 
 
@@ -33,7 +33,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public ObjectResult Get(ObjectId id)
         {
-            var suggestion = _db.GetSuggestion(id);
+            var suggestion = _db.GetObject(id);
             if (suggestion == null)
             {
                 return NotFound("not found!");
@@ -45,7 +45,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Suggestion a)
         {
-            _db.CreateSuggestion(a);
+            _db.Create(a);
             return new OkObjectResult(a);
 
         }
@@ -55,13 +55,13 @@ namespace VirtualSuggestionBoxApi.Controllers
         public IActionResult Put(ObjectId id, [FromBody] Suggestion a)
         {
             var recId = id;
-            var suggestion = _db.GetSuggestion(recId);
+            var suggestion = _db.GetObject(recId);
             if (suggestion == null)
             {
                 return NotFound();
             }
 
-            _db.UpdateSuggestion(recId, a);
+            _db.Update(recId, a);
             return new OkResult();
         }
 
@@ -69,13 +69,13 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(ObjectId id)
         {
-            var suggestion = _db.GetSuggestion(id);
+            var suggestion = _db.GetObject(id);
             if (suggestion == null)
             {
                 return NotFound();
             }
 
-            _db.RemoveSuggestion(suggestion.SuggestionID);
+            _db.Remove(suggestion.Id);
             return new OkResult();
 
         }
