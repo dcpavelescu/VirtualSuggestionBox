@@ -1,59 +1,39 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VirtualSuggestionBoxApi.Models;
+using VirtualSuggestionBoxApi.Storages;
 
-namespace VirtualSuggestionBoxApi.Storages
+namespace VirtualSuggestionBoxApi.Repositories
 {
-    public class Memory
+    public class SuggestionMemoryRepository
     {
-        //key: suggestionID , value: suggestion s 
-        Dictionary<String, Suggestion> dictionary = new Dictionary<String, Suggestion>();
-
-
-        //add Suggestion s to memory
-        public void addSuggestion(Suggestion s)
-        {
-            dictionary.Add(s.getID(), s);
-        }
-
-        //removes Suggestion by ID
-        public void removeSuggestion(String ID)
-        {
-            dictionary.Remove(ID);
-        }
-
-        //returns a Suggestion searched by ID
-        public Suggestion getSuggestion(String ID)
-        {
-            Suggestion s;
-            if (dictionary.TryGetValue(ID, out s))
-                return s;
-            else return null;
-        }
+        public SuggestionMemory memory = new SuggestionMemory();
 
         //adds rating r for a Suggestion ID, recalculates the averageRate
-        public void addRate(String ID, Rate r)
+        public void AddRate(String ID, Rate r)
         {
-            Suggestion s = getSuggestion(ID);
+            Suggestion s = memory.Get(ID);
             s.addRate(r);
-            s.setAvgRate(s.averageRate());
+            s.setAvgRate();
+            memory.Update(s);
         }
 
         //returns a key(ID) list of all suggestions
-        public List<String> viewSuggestions()
+        public List<String> ViewAll()
         {
             List<String> list = new List<String>();
-            list = dictionary.Keys.ToList();
+            list = memory.dictionary.Keys.ToList();
             return list;
         }
 
         //returns a key(ID) list by Suggestion category
-        public List<String> viewByCategory(String c)
+        public List<String> ViewByCategory(String c)
         {
             List<String> list = new List<String>();
-            foreach (KeyValuePair<String, Suggestion> entry in dictionary)
+            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
                 List<String> cat = entry.Value.getCategory();
                 foreach (String i in cat)
@@ -66,24 +46,24 @@ namespace VirtualSuggestionBoxApi.Storages
         }
 
         //returns a key(ID) list by employeeID- all suggestions posted by that employee
-        public List<String> viewSuggestionsByEmployee(String EmployeeID)
+        public List<String> ViewByEmployee(ObjectId EmployeeID)
         {
             List<String> list = new List<String>();
-            foreach (KeyValuePair<String, Suggestion> entry in dictionary)
+            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
-                String ID = entry.Value.getEmployeeID();
-                if (String.Compare(ID, EmployeeID) == 0)
+                ObjectId ID = entry.Value.getEmployeeID();
+                if (String.Compare(ID.ToString(), EmployeeID.ToString()) == 0)
                     list.Add(entry.Key);
             }
             return list;
         }
 
-        public List<String> Top3()
+        public List<String> ViewTop3()
         {
             List<String> list = new List<String>();
             double max1 = 0, max2 = 0, max3 = 0;
             string s1 = null, s2 = null, s3 = null;
-            foreach (KeyValuePair<String, Suggestion> entry in dictionary)
+            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
                 double tmp = entry.Value.getAvgRate();
                 if (tmp > max1)
@@ -93,7 +73,7 @@ namespace VirtualSuggestionBoxApi.Storages
                 }
             }
 
-            foreach (KeyValuePair<String, Suggestion> entry in dictionary)
+            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
                 double tmp = entry.Value.getAvgRate();
                 if (tmp > max2 && tmp < max1)
@@ -103,7 +83,7 @@ namespace VirtualSuggestionBoxApi.Storages
                 }
             }
 
-            foreach (KeyValuePair<String, Suggestion> entry in dictionary)
+            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
                 double tmp = entry.Value.getAvgRate();
                 if (tmp > max3 && tmp < max2)
@@ -117,5 +97,7 @@ namespace VirtualSuggestionBoxApi.Storages
             list.Add(s3);
             return list;
         }
+
+
     }
 }

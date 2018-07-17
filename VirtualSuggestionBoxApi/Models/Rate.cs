@@ -11,6 +11,12 @@ namespace VirtualSuggestionBoxApi.Models
         private String Feedback;
         private String EmployeeID;
 
+        public Rate(int score, string feedback, string employeeID)
+        {
+            Score = score;
+            Feedback = feedback;
+            EmployeeID = employeeID;
+        }
 
         public int getScore()
         {
