@@ -7,18 +7,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="%2a%2a\**" />
     <Compile Remove=".vs\**" />
     <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
+    <Content Remove="%2a%2a\**" />
     <Content Remove=".vs\**" />
     <Content Remove="bin\**" />
     <Content Remove="obj\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
     <EmbeddedResource Remove=".vs\**" />
     <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="obj\**" />
+    <None Remove="%2a%2a\**" />
     <None Remove=".vs\**" />
     <None Remove="bin\**" />
     <None Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="%2a%2a/%2a.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="%2a%2a\%2a.config" />
+    <Content Remove="%2a%2a\%2a.cshtml" />
+    <Content Remove="%2a%2a\%2a.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="%2a%2a/%2a" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,18 +72,6 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\dist\out-tsc\e2e\src\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\addNewSuggestion\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\footer\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\header\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\home\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\suggestion-details\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\app\suggestions-view\" />
-    <Folder Include="ClientApp\dist\out-tsc\src\environments\" />
-    <Folder Include="Connected Services\" />
   </ItemGroup>
 
   <ItemGroup>
