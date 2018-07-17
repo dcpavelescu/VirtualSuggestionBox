@@ -21,9 +21,9 @@ namespace VisualSuggestionBoxTest
         public void TestAdd()
         {
 
-            Suggestion s1 = new Suggestion("improv1", "sol1", MongoDB.Bson.ObjectId.Parse("emp1") );
-            Suggestion s2 = new Suggestion("improv2", "sol2", MongoDB.Bson.ObjectId.Parse("emp2") );
-            Suggestion s3 = new Suggestion("improv3", "sol3", MongoDB.Bson.ObjectId.Parse("emp3") );
+            Suggestion s1 = new Suggestion("improv1", "sol1", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s2 = new Suggestion("improv2", "sol2", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s3 = new Suggestion("improv3", "sol3", MongoDB.Bson.ObjectId.GenerateNewId());
 
             repository.memory.Add(s1);
             repository.memory.Add(s2);
@@ -36,20 +36,20 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestDelete()
         {
-            Suggestion s4 = new Suggestion("improv4", "sol4", MongoDB.Bson.ObjectId.Parse("emp4"));
+            Suggestion s4 = new Suggestion("improv4", "sol4", MongoDB.Bson.ObjectId.GenerateNewId() );
 
             repository.memory.Add(s4);
 
             repository.memory.Remove(s4.getID());
 
-            Assert.AreEqual(repository.memory.dictionary.Count(), 0);
+            Assert.AreEqual(repository.memory.dictionary.Count(), 3);
 
         }
 
         [TestMethod]
         public void TestGet()
         {
-            Suggestion s5 = new Suggestion("improv5", "sol5", MongoDB.Bson.ObjectId.Parse("emp5"));
+            Suggestion s5 = new Suggestion("improv5", "sol5", MongoDB.Bson.ObjectId.GenerateNewId());
 
             repository.memory.Add(s5);
 
@@ -60,10 +60,10 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestUpdate()
         {
-            Suggestion s6 = new Suggestion("improv6", "sol6", MongoDB.Bson.ObjectId.Parse("emp6"));
+            Suggestion s6 = new Suggestion("improv6", "sol6", MongoDB.Bson.ObjectId.GenerateNewId());
             repository.memory.Add(s6);
 
-            s6.setEmployeeId(ObjectId.Parse("999"));
+            s6.setEmployeeId( new ObjectId("507f1f77bcf86cd799439011") );
 
             repository.memory.Update(s6);
 
@@ -74,7 +74,7 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestAddRate()
         {
-            Suggestion s7 = new Suggestion("improv7", "sol7", MongoDB.Bson.ObjectId.Parse("emp7"));
+            Suggestion s7 = new Suggestion("improv7", "sol7", MongoDB.Bson.ObjectId.GenerateNewId());
 
             repository.memory.Add(s7);
 
@@ -83,6 +83,34 @@ namespace VisualSuggestionBoxTest
             repository.AddRate(s7.getID(), r1);
 
             Assert.AreEqual( repository.memory.Get(s7.getID()).getRateList(), s7.getRateList() );
+        }
+
+        [TestMethod]
+        public void TestGetAll()
+        {
+            Suggestion s8 = new Suggestion("improv8", "sol8", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s9 = new Suggestion("improv9", "sol9", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s10 = new Suggestion("improv10", "sol10", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s11 = new Suggestion("improv11", "sol11", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s12 = new Suggestion("improv12", "sol12", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s13 = new Suggestion("improv13", "sol13", MongoDB.Bson.ObjectId.GenerateNewId());
+
+            repository.memory.Add(s8);
+            repository.memory.Add(s9);
+            repository.memory.Add(s10);
+            repository.memory.Add(s11);
+            repository.memory.Add(s12);
+            repository.memory.Add(s13);
+
+
+            List<String> listId = repository.memory.GetAll();
+
+            Assert.AreEqual( listId.Count, repository.memory.dictionary.Keys.ToList().Count );
+
+            for(var i = 0; i < listId.Count; i++)
+            {
+                Assert.AreEqual( listId[i], repository.memory.dictionary.Keys.ToList()[i] );
+            }
         }
 
         /*
