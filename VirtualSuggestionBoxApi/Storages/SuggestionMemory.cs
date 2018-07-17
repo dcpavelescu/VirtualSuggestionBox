@@ -11,11 +11,22 @@ namespace VirtualSuggestionBoxApi.Storages
         //key: suggestionID , value: suggestion s 
         public Dictionary<String, Suggestion> dictionary = new Dictionary<String, Suggestion>();
 
+        //generates an unique ID for Suggestion
+        static object locker = new object();
+        public void GenerateUniqueID(Suggestion s)
+        {
+            lock (locker)
+            {
+                //   Thread.Sleep(100);
+                s.setID(MongoDB.Bson.ObjectId.GenerateNewId()); // ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
+                // this.EmployeeID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
+            }
+        }
 
         //add Suggestion s to memory
         public void Add(Suggestion s)
         {
-            s.GenerateUniqueID();
+            GenerateUniqueID(s);
             dictionary.Add(s.getID(), s);
         }
 
@@ -35,6 +46,12 @@ namespace VirtualSuggestionBoxApi.Storages
         public void Update(Suggestion s)
         {
             dictionary[s.getID()] = s;
+        }
+
+        //returns all the keys of the dictionary
+        public List<String> GetAll()
+        {
+            return dictionary.Keys.ToList();
         }
 
     }
