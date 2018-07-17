@@ -12,7 +12,6 @@ namespace VirtualSuggestionBoxApi.Models
         private String User;
         private String Email;
         private String Unit;
-
     }
 
 }

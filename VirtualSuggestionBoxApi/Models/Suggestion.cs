@@ -22,28 +22,6 @@ namespace VirtualSuggestionBoxApi.Models
         private List<String> Category;
         private Double avgRate;
 
-
-        //generates an unique ID for Suggestion
-        static object locker = new object();
-        public void GenerateUniqueID()
-        {
-            lock (locker)
-            {
-                //   Thread.Sleep(100);
-                this.SuggestionID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
-                this.EmployeeID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
-            }
-        }
-
-        public Suggestion(string improvement, string solution)
-        {
-            Ratings = new List<Rate>();
-            Category = new List<String>();
-            Improvement = improvement;
-            Solution = solution;
-            Date = DateTime.Now;
-        }
-
         public Suggestion(string improvement, string solution, ObjectId employeeID)
         {
             Ratings = new List<Rate>();
@@ -93,6 +71,11 @@ namespace VirtualSuggestionBoxApi.Models
         public String getID()
         {
             return  SuggestionID.ToString();
+        }
+
+        public void setID(ObjectId newId)
+        {
+            SuggestionID = newId;
         }
 
         public List<Rate> getRateList()

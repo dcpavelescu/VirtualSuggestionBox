@@ -10,7 +10,12 @@ namespace VirtualSuggestionBoxApi.Repositories
 {
     public class SuggestionMemoryRepository
     {
-        public SuggestionMemory memory = new SuggestionMemory();
+        public SuggestionMemory memory;
+
+        public SuggestionMemoryRepository(SuggestionMemory suggestionMemory)
+        {
+            memory = suggestionMemory;
+        }
 
         //adds rating r for a Suggestion ID, recalculates the averageRate
         public void AddRate(String ID, Rate r)
@@ -21,17 +26,12 @@ namespace VirtualSuggestionBoxApi.Repositories
             memory.Update(s);
         }
 
-        //returns a key(ID) list of all suggestions
-        public List<String> ViewAll()
-        {
-            List<String> list = new List<String>();
-            list = memory.dictionary.Keys.ToList();
-            return list;
-        }
-
         //returns a key(ID) list by Suggestion category
         public List<String> ViewByCategory(String c)
         {
+            /* IN CAZUL IN CARE AVEM MAI MULTE CATEGORII PENTRU O SUGESTIE
+             
+         
             List<String> list = new List<String>();
             foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
@@ -43,11 +43,19 @@ namespace VirtualSuggestionBoxApi.Repositories
                 }
             }
             return list;
+
+            */
+
+            //CAZUL IN CARE AVEM O SINGURA CATEGORIE / SUGESTIE
+            return (List<String>)memory.dictionary.Select( x => x.Value.getCategory()[1] ).Where( x => x.Equals(c) );
+
         }
 
         //returns a key(ID) list by employeeID- all suggestions posted by that employee
         public List<String> ViewByEmployee(ObjectId EmployeeID)
         {
+            return (List<String>)memory.dictionary.Select(x => x.Value.getEmployeeID()).Where(x => x.Equals(EmployeeID));
+            /*
             List<String> list = new List<String>();
             foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
             {
@@ -56,48 +64,14 @@ namespace VirtualSuggestionBoxApi.Repositories
                     list.Add(entry.Key);
             }
             return list;
+            */
         }
 
         public List<String> ViewTop3()
         {
-            List<String> list = new List<String>();
-            double max1 = 0, max2 = 0, max3 = 0;
-            string s1 = null, s2 = null, s3 = null;
-            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
-            {
-                double tmp = entry.Value.getAvgRate();
-                if (tmp > max1)
-                {
-                    max1 = tmp;
-                    s1 = entry.Value.getID();
-                }
-            }
-
-            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
-            {
-                double tmp = entry.Value.getAvgRate();
-                if (tmp > max2 && tmp < max1)
-                {
-                    max2 = tmp;
-                    s2 = entry.Value.getID();
-                }
-            }
-
-            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
-            {
-                double tmp = entry.Value.getAvgRate();
-                if (tmp > max3 && tmp < max2)
-                {
-                    max3 = tmp;
-                    s3 = entry.Value.getID();
-                }
-            }
-            list.Add(s1);
-            list.Add(s2);
-            list.Add(s3);
-            return list;
+            // return (List<String>)memory.dictionary.OrderByDescending(x => x.Value.getAvgRate()).Select(x => x.Key).Take(3);
+            return (List<String>)memory.dictionary.OrderByDescending(x => x.Value.getAvgRate()).Take(3);
         }
-
-
     }
 }
+    

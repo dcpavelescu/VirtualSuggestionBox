@@ -14,18 +14,16 @@ namespace VisualSuggestionBoxTest
     [TestClass]
     public class SuggestionMemoryTest
     {
-
-        SuggestionMemoryRepository repository = new SuggestionMemoryRepository();
+        static SuggestionMemory mem = new SuggestionMemory();
+        SuggestionMemoryRepository repository = new SuggestionMemoryRepository(mem);
 
         [TestMethod]
         public void TestAdd()
         {
-            Suggestion s1 = new Suggestion("improv1", "sol1");
-            Suggestion s2 = new Suggestion("improv2", "sol2");
-            Suggestion s3 = new Suggestion("improv3", "sol3");
-            s1.GenerateUniqueID();
-            s2.GenerateUniqueID();
-            s3.GenerateUniqueID();
+
+            Suggestion s1 = new Suggestion("improv1", "sol1", MongoDB.Bson.ObjectId.Parse("emp1") );
+            Suggestion s2 = new Suggestion("improv2", "sol2", MongoDB.Bson.ObjectId.Parse("emp2") );
+            Suggestion s3 = new Suggestion("improv3", "sol3", MongoDB.Bson.ObjectId.Parse("emp3") );
 
             repository.memory.Add(s1);
             repository.memory.Add(s2);
@@ -38,8 +36,8 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestDelete()
         {
-            Suggestion s4 = new Suggestion("improv4", "sol4");
-            s4.GenerateUniqueID();
+            Suggestion s4 = new Suggestion("improv4", "sol4", MongoDB.Bson.ObjectId.Parse("emp4"));
+
             repository.memory.Add(s4);
 
             repository.memory.Remove(s4.getID());
@@ -51,8 +49,8 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestGet()
         {
-            Suggestion s5 = new Suggestion("improv5", "sol5");
-            s5.GenerateUniqueID();
+            Suggestion s5 = new Suggestion("improv5", "sol5", MongoDB.Bson.ObjectId.Parse("emp5"));
+
             repository.memory.Add(s5);
 
             Assert.AreEqual( repository.memory.Get(s5.getID()), s5);
@@ -62,11 +60,10 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestUpdate()
         {
-            Suggestion s6 = new Suggestion("improv6", "sol6");
+            Suggestion s6 = new Suggestion("improv6", "sol6", MongoDB.Bson.ObjectId.Parse("emp6"));
             repository.memory.Add(s6);
 
-            s6.GenerateUniqueID();
-         //   s6.setEmployeeId("999");
+            s6.setEmployeeId(ObjectId.Parse("999"));
 
             repository.memory.Update(s6);
 
@@ -77,8 +74,8 @@ namespace VisualSuggestionBoxTest
         [TestMethod]
         public void TestAddRate()
         {
-            Suggestion s7 = new Suggestion("improv7", "sol7");
-            s7.GenerateUniqueID();
+            Suggestion s7 = new Suggestion("improv7", "sol7", MongoDB.Bson.ObjectId.Parse("emp7"));
+
             repository.memory.Add(s7);
 
             Rate r1 = new Rate(5, "fed1", "emp1");
