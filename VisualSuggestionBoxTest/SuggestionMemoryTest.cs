@@ -13,7 +13,7 @@ namespace VisualSuggestionBoxTest
     [TestClass]
     public class SuggestionMemoryTest
     {
-        static MemoryStorage mem = new MemoryStorage();
+        static MemoryStorage<IEntity> mem = new MemoryStorage<IEntity>();
         SuggestionMemoryRepository repository = new SuggestionMemoryRepository(mem);
 
         [TestMethod]

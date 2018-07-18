@@ -22,7 +22,7 @@ namespace VirtualSuggestionBoxApi.Models
         }
     }
     */
-    public class Account :Tentity
+    public class Account :IEntity
     {
         public String Id { get; set; }
         public string username { get; set; }

@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ using System.Security.Authentication;
 
 namespace VirtualSuggestionBoxApi
 {
-        public class MongoDBStorage<T> : IStorage<T> where T: TmodelInterface
+        public class MongoDBStorage<TEntity> : IStorage<TEntity> where TEntity : IEntity
     {
             MongoClient _client;
             MongoServerAddress _server;
@@ -75,37 +75,50 @@ namespace VirtualSuggestionBoxApi
                 _dbS = client.GetDatabase(MongoDatabaseNameSuggestion);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            return _db.GetCollection<T>(typeof(T).Name).Find(_ => true).ToList();
+            return _db.GetCollection<TEntity>(typeof(TEntity).Name).Find(_ => true).ToList();
         }
-        public T Get(ObjectId id)
+        public TEntity Get(String id)
         {
          //   var res = DbQuery<Account>.Eq(a => a.Id, id);
 
-            var res = Builders<T>.Filter.Eq(a => a.Id, id);
+            var res = Builders<TEntity>.Filter.Eq(a => a.Id, id);
    
-            return _db.GetCollection<T>(typeof(T).Name).Find(res).SingleOrDefault();
+            return _db.GetCollection<TEntity>(typeof(TEntity).Name).Find(res).SingleOrDefault();
         }
 
-        public T Create(T a)
+        public void Add(TEntity a)
         {
-            _db.GetCollection<T>(typeof(T).Name).InsertOne(a);
-            return a;
+            _db.GetCollection<TEntity>(typeof(TEntity).Name).InsertOne(a);
+           // return a;
         }
-
-        public void Update(ObjectId id, T a)
+        //BETA
+        /*
+        public void Update(String id, TEntity a)
         {
             a.Id = id;
-            var res = Builders<T>.Filter.Eq(ac => ac.Id, id);
-          //  var update = Builders<BsonDocument>.Update();
+            var res = Builders<TEntity>.Filter.Eq(ac => ac.Id, a.id);
+            //  var update = Builders<BsonDocument>.Update();
             //var operation = Update<Account>.Replace(a);
-            _db.GetCollection<T>(typeof(T).Name).ReplaceOneAsync(res, a);
+            _db.GetCollection<TEntity>(typeof(TEntity).Name).ReplaceOneAsync(res, a);
         }
-        public void Remove(ObjectId id)
+        */
+        public void Update(TEntity a)
         {
-            var res = Builders<T>.Filter.Eq(ac => ac.Id, id);
-            var operation = _db.GetCollection<T>(typeof(T).Name).FindOneAndDeleteAsync(res);
+
+            var res = Builders<TEntity>.Filter.Eq(ac => ac.Id, a.Id);
+            _db.GetCollection<TEntity>(typeof(TEntity).Name).ReplaceOneAsync(res, a);
+        }
+        public void Remove(String id)
+        {
+            var res = Builders<TEntity>.Filter.Eq(ac => ac.Id, id);
+            var operation = _db.GetCollection<TEntity>(typeof(TEntity).Name).FindOneAndDeleteAsync(res);
+        }
+        public void RemoveAll()
+        {
+           // var res = Builders<TEntity>.Filter.Eq(ac => ac.Id, id);
+            var operation = _db.GetCollection<TEntity>(typeof(TEntity).Name).FindOneAndDelete(_ => true);
         }
         /*
         public IEnumerable<Suggestion> GetSuggestions()
@@ -141,8 +154,7 @@ namespace VirtualSuggestionBoxApi
             var operation = _dbS.GetCollection<Suggestion>("Suggestion").FindOneAndDeleteAsync(res);
         }
         
-
+    */
     }
 }
 
-*/

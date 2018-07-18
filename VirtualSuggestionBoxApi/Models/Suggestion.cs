@@ -9,7 +9,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion : Tentity
+    public class Suggestion : IEntity
     {
         private String id;
         public String Id { get { return id; } set { id = value; } }

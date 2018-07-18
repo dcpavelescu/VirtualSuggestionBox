@@ -26,7 +26,7 @@ namespace VirtualSuggestionBoxApi
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices<T>(IServiceCollection services)
+        public void ConfigureServices<TEntity>(IServiceCollection services)
         {
             if (Convert.ToBoolean(Configuration["PersistData"] ?? "false"))
             {
@@ -38,10 +38,10 @@ namespace VirtualSuggestionBoxApi
             }
             else
             {
-               // services.AddSingleton(typeof(T), typeof(MongoDBStorage<T>));
+               // services.AddSingleton(typeof(T), typeof(MongoDBStorage<TEntity>));
             }
             
-           // services.AddTransient(typeof(MongoDBStorage<T>), typeof(MongoDBStorage<T>));
+           // services.AddTransient(typeof(MongoDBStorage<TEntity>), typeof(MongoDBStorage<TEntity>));
 
             services.AddSingleton<IConfiguration>(Configuration);
 

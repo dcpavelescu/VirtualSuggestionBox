@@ -6,22 +6,22 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi.Storages
 {
-    public class MemoryStorage : IStorage<Tentity>
+    public class MemoryStorage<TEntity> : IStorage<TEntity> where TEntity : IEntity
     { 
-        public Dictionary<String, Tentity> dictionary = new Dictionary<String, Tentity>();
+        public Dictionary<String, TEntity> dictionary = new Dictionary<String, TEntity>();
 
-        public void GenerateUniqueID(Tentity e)
+        public void GenerateUniqueID(TEntity e)
         {
             e.Id = e.GetHashCode().ToString();  
         }
        
-        public void Add(Tentity e)
+        public void Add(TEntity e)
         {
             GenerateUniqueID(e);
             dictionary.Add(e.Id, e);
         }
 
-        public void Update(Tentity e)
+        public void Update(TEntity e)
         {
             dictionary[e.Id] = e;
         }
@@ -36,12 +36,12 @@ namespace VirtualSuggestionBoxApi.Storages
             dictionary.Clear();
         }
 
-        public Tentity Get(string Id)
+        public TEntity Get(string Id)
         {
             return dictionary[Id];
         }
 
-        public IEnumerable<Tentity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return dictionary.Values;
         }

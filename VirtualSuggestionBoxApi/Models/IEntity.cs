@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public interface Tentity
-    {  
+    public interface IEntity
+    {
+        [Required]
         String Id { get; set; }
     }
 }

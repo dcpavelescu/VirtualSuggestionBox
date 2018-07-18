@@ -8,13 +8,13 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi
 {
-    public interface IStorage<Tentity>
+    public interface IStorage<TEntity> where TEntity :IEntity
     {   
-        void Add(Tentity e);
-        void Update(Tentity e);
+        void Add(TEntity e);
+        void Update(TEntity e);
         void Remove(String Id);
         void RemoveAll();
-        Tentity Get(String Id);
-        IEnumerable<Tentity> GetAll();
+        TEntity Get(String Id);
+        IEnumerable<TEntity> GetAll();
     }
 }

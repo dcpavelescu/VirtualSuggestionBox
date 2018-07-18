@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Employee : Tentity
+    public class Employee : IEntity
     {
         private String id;
         public String Id { get { return id; } set { id = value; } }
