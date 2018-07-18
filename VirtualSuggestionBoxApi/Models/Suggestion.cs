@@ -9,95 +9,63 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion
+    public class Suggestion : Tentity
     {
-        [BsonId]
-        public ObjectId SuggestionID;
+        private String id;
+        public String Id { get { return id; } set { id = value; } }
         private String Improvement;
         private String Solution;
-        [BsonId]
-        private ObjectId EmployeeID;
+        private String EmployeeId;
         private DateTime Date;
         private List<Rate> Ratings;
         private List<String> Category;
         private Double avgRate;
 
 
-        //generates an unique ID for Suggestion
-        static object locker = new object();
-        public void GenerateUniqueID()
-        {
-            lock (locker)
-            {
-                //   Thread.Sleep(100);
-                this.SuggestionID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
-                this.EmployeeID = MongoDB.Bson.ObjectId.GenerateNewId();// ObjectId.Parse(DateTime.Now.ToString("yyyyMMddHHmmssf"));
-            }
-        }
-
-        public Suggestion(string improvement, string solution)
+        public Suggestion(string Improvement, string Solution, String EmployeeId)
         {
             Ratings = new List<Rate>();
             Category = new List<String>();
-            Improvement = improvement;
-            Solution = solution;
+            this.Improvement = Improvement;
+            this.Solution = Solution;
+            this.EmployeeId = EmployeeId;
             Date = DateTime.Now;
         }
 
-        public Suggestion(string improvement, string solution, ObjectId employeeID)
+        public String getEmployeeId()
         {
-            Ratings = new List<Rate>();
-            Category = new List<String>();
-            Improvement = improvement;
-            Solution = solution;
-            EmployeeID = employeeID;
-            Date = DateTime.Now;
+            return this.EmployeeId;
         }
 
-        public void addRate(Rate r)
+        public void setEmployeeId(String EmployeeId)
         {
-            Ratings.Add(r);
+            this.EmployeeId = Id;
         }
 
-        //calculates the average rating
-        public void setAvgRate()
-        {
-            double media = 0;
-            foreach (Rate r in Ratings)
-            {
-                media += r.getScore();
-            }
-            media /= Ratings.Count();
-            this.avgRate = media;
-        }
-
-        public double getAvgRate()
+       public double getAvgRate()
         {
             return avgRate;
         }
+
+        public void setAvgRate()
+        {
+            double media = Ratings.Select(x => x.getScore()).Sum();
+            this.avgRate = media / Ratings.Count();
+        }
+
+        public void addRate(Rate rate)
+        {
+            this.Ratings.Add(rate);
+        }
+
         public List<String> getCategory()
         {
-            return Category;
+            return this.Category;
         }
 
-        public ObjectId getEmployeeID()
+        public List<Rate> getRatings()
         {
-            return EmployeeID;
-        }
-
-        public void setEmployeeId(ObjectId newId)
-        {
-            this.EmployeeID = newId;
-        }
-
-        public String getID()
-        {
-            return  SuggestionID.ToString();
-        }
-
-        public List<Rate> getRateList()
-        {
-            return Ratings;
+            return this.Ratings;
         }
     }
 }

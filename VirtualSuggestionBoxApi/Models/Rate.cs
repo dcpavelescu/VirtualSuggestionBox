@@ -9,13 +9,13 @@ namespace VirtualSuggestionBoxApi.Models
     {
         private int Score;
         private String Feedback;
-        private String EmployeeID;
+        private String EmployeeId;
 
-        public Rate(int score, string feedback, string employeeID)
+        public Rate(int Score, string Feedback, string EmployeeId)
         {
-            Score = score;
-            Feedback = feedback;
-            EmployeeID = employeeID;
+            this.Score = Score;
+            this.Feedback = Feedback;
+            this.EmployeeId = EmployeeId;
         }
 
         public int getScore()
