@@ -13,7 +13,7 @@ namespace VisualSuggestionBoxTest
     [TestClass]
     public class SuggestionMemoryTest
     {
-        static MemoryStorage mem = new MemoryStorage();
+        static MemoryStorage<IEntity> mem = new MemoryStorage<IEntity>();
         SuggestionMemoryRepository repository = new SuggestionMemoryRepository(mem);
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace VisualSuggestionBoxTest
             repository.memory.Add(s2);
             repository.memory.Add(s3);
 
-            Assert.AreEqual(repository.memory.dictionary.Count(), 3);
+            Assert.AreEqual(repository.memory.Count(), 3);
             repository.memory.RemoveAll();
         }
 
@@ -40,7 +40,7 @@ namespace VisualSuggestionBoxTest
 
             repository.memory.Remove(s4.Id);
 
-            Assert.AreEqual(repository.memory.dictionary.Count(), 0);
+            Assert.AreEqual(repository.memory.Count(), 0);
             repository.memory.RemoveAll();
         }
 
@@ -61,7 +61,7 @@ namespace VisualSuggestionBoxTest
             Suggestion s6 = new Suggestion("improv6", "sol6","emp6");
             repository.memory.Add(s6);
 
-            s6.setEmployeeId("idnou");
+            s6.SetEmployeeId("idnou");
 
             repository.memory.Update(s6);
 
@@ -80,7 +80,9 @@ namespace VisualSuggestionBoxTest
 
             repository.AddRate(s7.Id, r1);
             Suggestion s = (Suggestion)repository.memory.Get(s7.Id);
-            Assert.AreEqual( s.getRatings(), s7.getRatings());
+
+            Assert.AreEqual( s.GetRatings(), s7.GetRatings());
+
             repository.memory.RemoveAll();
         }
 
@@ -101,10 +103,25 @@ namespace VisualSuggestionBoxTest
             repository.memory.Add(s12);
             repository.memory.Add(s13);
 
-            List<Suggestion> listId = repository.memory.GetAll().Cast<Suggestion>().ToList();
+            List<Suggestion> listResult = repository.memory.GetAll().Cast<Suggestion>().ToList();
 
-            Assert.AreEqual( listId.Count, repository.memory.dictionary.Keys.ToList().Count );
+            Assert.AreEqual(listResult.Count, repository.memory.GetAll().Count() );
+
+            List<Suggestion> testList = new List<Suggestion>();
+            testList.Add(s8);
+            testList.Add(s9);
+            testList.Add(s10);
+            testList.Add(s11);
+            testList.Add(s12);
+            testList.Add(s13);
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );
+            }
+
             repository.memory.RemoveAll();
+            testList.Clear();
         }
     }
 }

@@ -9,63 +9,64 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion : Tentity
+    public class Suggestion : IEntity
     {
-        private String id;
+        private String id; // ce este acesta?
+
         public String Id { get { return id; } set { id = value; } }
-        private String Improvement;
-        private String Solution;
-        private String EmployeeId;
-        private DateTime Date;
-        private List<Rate> Ratings;
-        private List<String> Category;
+       
+        private String improvement;
+        private String solution;
+        private String employeeId;
+        private DateTime date;
+        private List<Rate> ratings;
+        private List<String> category;
         private Double avgRate;
 
-
-        public Suggestion(string Improvement, string Solution, String EmployeeId)
+        public Suggestion(string improvement, string solution, String employeeId)
         {
-            Ratings = new List<Rate>();
-            Category = new List<String>();
-            this.Improvement = Improvement;
-            this.Solution = Solution;
-            this.EmployeeId = EmployeeId;
-            Date = DateTime.Now;
+            ratings = new List<Rate>();
+            category = new List<String>();
+            this.improvement = improvement;
+            this.solution = solution;
+            this.employeeId = employeeId;
+            date = DateTime.Now;
         }
 
-        public String getEmployeeId()
+        public String GetEmployeeId()
         {
-            return this.EmployeeId;
+            return employeeId;
         }
 
-        public void setEmployeeId(String EmployeeId)
+        public void SetEmployeeId(String employeeId)    // aici era this.employeeId = Id, cu toate ca parametrul metodei era String EmployeeId
         {
-            this.EmployeeId = Id;
+            this.employeeId = employeeId;
         }
 
-       public double getAvgRate()
+       public double GetAvgRate()
         {
             return avgRate;
         }
 
-        public void setAvgRate()
+        public void SetAvgRate()
         {
-            double media = Ratings.Select(x => x.getScore()).Sum();
-            this.avgRate = media / Ratings.Count();
+            double media = ratings.Select( x => x.GetScore() ).Sum();
+            avgRate = media / ratings.Count();
         }
 
-        public void addRate(Rate rate)
+        public void AddRate(Rate rate)
         {
-            this.Ratings.Add(rate);
+            ratings.Add(rate);
         }
 
-        public List<String> getCategory()
+        public List<String> GetCategory()
         {
-            return this.Category;
+            return category;
         }
 
-        public List<Rate> getRatings()
+        public List<Rate> GetRatings()
         {
-            return this.Ratings;
+            return ratings;
         }
     }
 }
