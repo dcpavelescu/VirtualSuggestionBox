@@ -11,9 +11,6 @@ namespace VirtualSuggestionBoxApi.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-      //  public IActionResult Index()
-    //    {
-     //       return View();
-     //   }
+
     }
 }

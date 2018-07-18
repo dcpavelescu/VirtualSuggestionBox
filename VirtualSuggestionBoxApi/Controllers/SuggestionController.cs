@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using VirtualSuggestionBoxApi.Models;
+using VirtualSuggestionBoxApi.Storages;
 
 namespace VirtualSuggestionBoxApi.Controllers
 {
@@ -21,7 +22,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         }
 
         //  GET: api/Suggestion
-        [HttpGet]
+        // [HttpGet]
         public IEnumerable<Suggestion> Get()
         {
 
@@ -30,7 +31,7 @@ namespace VirtualSuggestionBoxApi.Controllers
 
 
         // GET: api/Suggestion/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ObjectResult Get(ObjectId id)
         {
             var suggestion = _db.GetSuggestion(id);
