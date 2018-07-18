@@ -25,19 +25,15 @@ namespace VirtualSuggestionBoxApi.Repositories
             memory.Update(s);
         }
 
-        // ceva e shady aici cu acel x.Id, pentru ca acela ar trebui sa fie EmployeeId si nu SuggestionId
-        // nu ar trebui in loc de x.Id.Equals(EmployeeId) sa fie x.GetEmployeeId().Equal
         public List<Suggestion> ViewByEmployee(String EmployeeId)
         {
-            return memory.GetAll().Select( x =>(Suggestion)x ).Where( x => x.Id.Equals(EmployeeId) ).ToList();
-           // return memory.GetAll().Select( x => (Suggestion)x ).Where( x => x.GetEmployeeId().Equals(EmployeeId) ).ToList();
+            return memory.GetAll().Select( x => (Suggestion)x ).Where( x => x.GetEmployeeId().Equals(EmployeeId) ).ToList();
         }
 
         public List<Suggestion> ViewTop3()
         {
             return memory.GetAll().Select( x => (Suggestion)x ).OrderByDescending( x => x.GetAvgRate() ).Take(3).ToList();
         }
-
 
         public List<Suggestion> ViewByCategory(String c)
         {

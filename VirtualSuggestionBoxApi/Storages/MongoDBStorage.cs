@@ -98,7 +98,7 @@ namespace VirtualSuggestionBoxApi
 
         //BETA  
         /*
-        public void Update(ObjectId id, TEntity a)
+        public void Update(String id, TEntity a)
         {
             a.Id = id;
             var res = Builders<T>.Filter.Eq(ac => ac.Id, id);

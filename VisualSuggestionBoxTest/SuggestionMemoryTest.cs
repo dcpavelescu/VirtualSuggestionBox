@@ -123,5 +123,132 @@ namespace VisualSuggestionBoxTest
             repository.memory.RemoveAll();
             testList.Clear();
         }
+
+        [TestMethod]
+        public void TestViewByCategory()
+        {
+            Suggestion s14 = new Suggestion("improv14", "sol14", "emp14");
+            s14.SetCategory( new List<String>() { "A", "B", "C", "D" } );
+            repository.memory.Add(s14);
+
+            Suggestion s15 = new Suggestion("improv15", "sol15", "emp15");
+            s15.SetCategory(new List<String>() { "A", "B", "C" });
+            repository.memory.Add(s15);
+
+            Suggestion s16 = new Suggestion("improv16", "sol16", "emp16");
+            s16.SetCategory(new List<String>() { "A", "B" });
+            repository.memory.Add(s16);
+
+            Suggestion s17 = new Suggestion("improv17", "sol17", "emp17");
+            s17.SetCategory(new List<String>() { "A" });
+            repository.memory.Add(s17);
+
+            List<Suggestion> testList = repository.memory.GetAll().Cast<Suggestion>().ToList();
+            List<Suggestion> listResult = repository.ViewByCategory( "A" );
+
+            Assert.AreEqual( testList.Count, listResult.Count );
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );
+            }
+
+            repository.memory.RemoveAll();
+            listResult.Clear();
+            testList.Clear();
+
+        }
+
+        [TestMethod]
+        public void TestViewByEmployee()
+        {
+            Suggestion s18 = new Suggestion("improv18", "sol18", "emp18");
+            repository.memory.Add(s18);
+
+            Suggestion s19 = new Suggestion("improv19", "sol19", "emp18");
+            repository.memory.Add(s19);
+
+            Suggestion s20 = new Suggestion("improv20", "sol20", "emp19");
+            repository.memory.Add(s20);
+
+            Suggestion s21 = new Suggestion("improv21", "sol21", "emp19");
+            repository.memory.Add(s21);
+
+            List<Suggestion> listResult = repository.ViewByEmployee( "emp18" );
+            List<Suggestion> testList = repository.memory.GetAll().Cast<Suggestion>().ToList();
+
+            Assert.AreEqual( listResult.Count, 2 );
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );       
+            }
+
+            repository.memory.RemoveAll();
+            listResult.Clear();
+            testList.Clear();
+
+        }
+
+        [TestMethod]
+        public void TestViewTop3()
+        {
+            Suggestion s22 = new Suggestion("improv22", "sol22", "emp22");
+            Suggestion s23 = new Suggestion("improv23", "sol23", "emp23");
+            Suggestion s24 = new Suggestion("improv24", "sol24", "emp24");
+            Suggestion s25 = new Suggestion("improv25", "sol25", "emp25");
+            Suggestion s26 = new Suggestion("improv26", "sol26", "emp26");
+            Suggestion s27 = new Suggestion("improv27", "sol27", "emp27");
+
+            repository.memory.Add(s22);
+            repository.memory.Add(s23);
+            repository.memory.Add(s24);
+            repository.memory.Add(s25);
+            repository.memory.Add(s26);
+            repository.memory.Add(s27);
+
+            repository.AddRate(s22.Id, new Rate(5, "abc", "emp22"));
+            repository.AddRate(s23.Id, new Rate(4, "abc", "emp23"));
+            repository.AddRate(s24.Id, new Rate(3, "abc", "emp24"));
+            repository.AddRate(s25.Id, new Rate(2, "abc", "emp25"));
+            repository.AddRate(s26.Id, new Rate(1, "abc", "emp26"));
+            repository.AddRate(s27.Id, new Rate(1, "abc", "emp27"));
+
+            List<Suggestion> testList = repository.memory.GetAll().Cast<Suggestion>().ToList();
+            List<Suggestion> listResult = repository.ViewTop3();
+
+            Assert.AreEqual( listResult.Count, 3 );
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );
+            }
+
+            repository.memory.RemoveAll();
+            listResult.Clear();
+            testList.Clear();
+
+        }
+
+        [TestMethod]
+        public void TestCount()
+        {
+            Suggestion s28 = new Suggestion("improv28", "sol28", "emp28");
+            repository.memory.Add(s28);
+
+            Suggestion s29 = new Suggestion("improv29", "sol29", "emp29");
+            repository.memory.Add(s29);
+
+            Suggestion s30 = new Suggestion("improv30", "sol30", "emp30");
+            repository.memory.Add(s30);
+
+            List <Suggestion> listResult = repository.memory.GetAll().Cast<Suggestion>().ToList();
+
+            Assert.AreEqual( listResult.Count, repository.memory.Count() );
+
+            repository.memory.RemoveAll();
+            listResult.Clear();
+        }
+
     }
 }
