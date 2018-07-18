@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace VirtualSuggestionBoxApi.Controllers
 
         // GET: api/Suggestion/5
         [HttpGet("{id}")]
-        public ObjectResult Get(ObjectId id)
+        public ObjectResult Get(String id)
         {
             var suggestion = _db.Get(id);
             if (suggestion == null)
@@ -47,14 +47,14 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Suggestion a)
         {
-            _db.Create(a);
+            _db.Add(a);
             return new OkObjectResult(a);
 
         }
 
         // PUT: api/Suggestion/5
         [HttpPut("{id}")]
-        public IActionResult Put(ObjectId id, [FromBody] Suggestion a)
+        public IActionResult Put(String id, [FromBody] Suggestion a)
         {
             var recId = id;
             var suggestion = _db.Get(recId);
@@ -63,13 +63,14 @@ namespace VirtualSuggestionBoxApi.Controllers
                 return NotFound();
             }
 
-            _db.Update(recId, a);
+            //BETA _db.Update(recId, a);
+            _db.Update(a);
             return new OkResult();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(ObjectId id)
+        public IActionResult Delete(String id)
         {
             var suggestion = _db.Get(id);
             if (suggestion == null)
@@ -84,4 +85,3 @@ namespace VirtualSuggestionBoxApi.Controllers
 
     }
 }
-*/
