@@ -14,10 +14,10 @@ namespace VirtualSuggestionBoxApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        MongoDBStorage _db;
+        MongoDBStorage<Account> _db;
         public AccountController()
         {
-            _db = new MongoDBStorage();
+            _db = new MongoDBStorage<Account>();
         }
 
        //  GET: api/Account
@@ -31,7 +31,7 @@ namespace VirtualSuggestionBoxApi.Controllers
             var query = Builders<Account>.Filter.Or(user, pw);
             var AccountDetails =await  _dbContext._database.GetCollection<Account>("Account").FindAsync(query);//;.Result.ToList(); //.GetCollection("Dd").ToList();
               */                                                                                                                     
-            return _db.GetAccounts(); 
+            return _db.Get(); 
         }
 
 
@@ -39,7 +39,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public ObjectResult Get(ObjectId id)
         {
-            var account = _db.GetAccount(id);
+            var account = _db.GetObject(id);
             if (account == null)
             {
                 return NotFound("not found!");
@@ -61,7 +61,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         public IActionResult Put(ObjectId id, [FromBody] Account a)
         {
             var recId = id;
-            var account = _db.GetAccount(recId);
+            var account = _db.GetObject(recId);
             if (account == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(ObjectId id)
         {
-            var account = _db.GetAccount(id);
+            var account = _db.GetObject(id);
             if (account == null)
             {
                 return NotFound();

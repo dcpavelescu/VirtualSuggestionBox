@@ -22,7 +22,7 @@ namespace VirtualSuggestionBoxApi.Models
         }
     }
     */
-    public class Account
+    public class Account :TmodelInterface
     {
         public ObjectId Id { get; set; }
         public string username { get; set; }

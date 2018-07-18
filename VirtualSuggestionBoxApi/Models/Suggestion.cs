@@ -9,10 +9,10 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion
+    public class Suggestion : TmodelInterface
     {
         [BsonId]
-        public ObjectId SuggestionID;
+        public ObjectId Id { get; set; }
         private String Improvement;
         private String Solution;
         [BsonId]
@@ -21,6 +21,8 @@ namespace VirtualSuggestionBoxApi.Models
         private List<Rate> Ratings;
         private List<String> Category;
         private Double avgRate;
+
+        //public object Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Suggestion(string improvement, string solution, ObjectId employeeID)
         {
@@ -70,12 +72,12 @@ namespace VirtualSuggestionBoxApi.Models
 
         public String getID()
         {
-            return  SuggestionID.ToString();
+            return  Id.ToString();
         }
 
         public void setID(ObjectId newId)
         {
-            SuggestionID = newId;
+            Id = newId;
         }
 
         public List<Rate> getRateList()

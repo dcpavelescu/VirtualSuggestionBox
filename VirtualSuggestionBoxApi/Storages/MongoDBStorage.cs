@@ -13,8 +13,8 @@ using System.Security.Authentication;
 
 namespace VirtualSuggestionBoxApi
 {
-        public class MongoDBStorage
-        {
+        public class MongoDBStorage<T> : IStorage<T> where T: TmodelInterface
+    {
             MongoClient _client;
             MongoServerAddress _server;
             IMongoDatabase _db;
@@ -75,39 +75,39 @@ namespace VirtualSuggestionBoxApi
                 _dbS = client.GetDatabase(MongoDatabaseNameSuggestion);
         }
 
-        public IEnumerable<Account> GetAccounts()
+        public IEnumerable<T> Get()
         {
-            return _db.GetCollection<Account>("Account").Find(_ => true).ToList();
+            return _db.GetCollection<T>(typeof(T).Name).Find(_ => true).ToList();
         }
-        public Account GetAccount(ObjectId id)
+        public T GetObject(ObjectId id)
         {
          //   var res = DbQuery<Account>.Eq(a => a.Id, id);
 
-            var res = Builders<Account>.Filter.Eq(a => a.Id, id);
+            var res = Builders<T>.Filter.Eq(a => a.Id, id);
    
-            return _db.GetCollection<Account>("Account").Find(res).SingleOrDefault();
+            return _db.GetCollection<T>(typeof(T).Name).Find(res).SingleOrDefault();
         }
 
-        public Account Create(Account a)
+        public T Create(T a)
         {
-            _db.GetCollection<Account>("Account").InsertOne(a);
+            _db.GetCollection<T>(typeof(T).Name).InsertOne(a);
             return a;
         }
 
-        public void Update(ObjectId id, Account a)
+        public void Update(ObjectId id, T a)
         {
             a.Id = id;
-            var res = Builders<Account>.Filter.Eq(ac => ac.Id, id);
+            var res = Builders<T>.Filter.Eq(ac => ac.Id, id);
           //  var update = Builders<BsonDocument>.Update();
             //var operation = Update<Account>.Replace(a);
-            _db.GetCollection<Account>("Account").ReplaceOneAsync(res, a);
+            _db.GetCollection<T>(typeof(T).Name).ReplaceOneAsync(res, a);
         }
         public void Remove(ObjectId id)
         {
-            var res = Builders<Account>.Filter.Eq(ac => ac.Id, id);
-            var operation = _db.GetCollection<Account>("Account").FindOneAndDeleteAsync(res);
+            var res = Builders<T>.Filter.Eq(ac => ac.Id, id);
+            var operation = _db.GetCollection<T>(typeof(T).Name).FindOneAndDeleteAsync(res);
         }
-
+        /*
         public IEnumerable<Suggestion> GetSuggestions()
         {
             return _dbS.GetCollection<Suggestion>("Suggestion").Find(_ => true).ToList();
@@ -140,7 +140,7 @@ namespace VirtualSuggestionBoxApi
             var res = Builders<Suggestion>.Filter.Eq(ac => ac.SuggestionID, id);
             var operation = _dbS.GetCollection<Suggestion>("Suggestion").FindOneAndDeleteAsync(res);
         }
-
+        */
 
     }
 }
