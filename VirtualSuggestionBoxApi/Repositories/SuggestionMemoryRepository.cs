@@ -10,67 +10,35 @@ namespace VirtualSuggestionBoxApi.Repositories
 {
     public class SuggestionMemoryRepository
     {
-        public SuggestionMemory memory;
+        public MemoryStorage memory;
 
-        public SuggestionMemoryRepository(SuggestionMemory suggestionMemory)
+        public SuggestionMemoryRepository(MemoryStorage suggestionMemory)
         {
             memory = suggestionMemory;
         }
 
-        //adds rating r for a Suggestion ID, recalculates the averageRate
-        public void AddRate(String ID, Rate r)
+        public void AddRate(String Id, Rate r)
         {
-            Suggestion s = memory.Get(ID);
+            Suggestion s = (Suggestion)memory.Get(Id);
             s.addRate(r);
             s.setAvgRate();
             memory.Update(s);
         }
 
-        //returns a key(ID) list by Suggestion category
-        public List<String> ViewByCategory(String c)
+        public List<Suggestion> ViewByEmployee(String EmployeeId)
         {
-            /* IN CAZUL IN CARE AVEM MAI MULTE CATEGORII PENTRU O SUGESTIE
-             
-         
-            List<String> list = new List<String>();
-            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
-            {
-                List<String> cat = entry.Value.getCategory();
-                foreach (String i in cat)
-                {
-                    if (String.Compare(c, i) == 0)
-                        list.Add(entry.Key);
-                }
-            }
-            return list;
-
-            */
-
-            //CAZUL IN CARE AVEM O SINGURA CATEGORIE / SUGESTIE
-            return (List<String>)memory.dictionary.Select( x => x.Value.getCategory()[1] ).Where( x => x.Equals(c) );
-
+            return memory.GetAll().Select(x =>(Suggestion)x).Where(x => x.Id.Equals(EmployeeId)).ToList();
         }
 
-        //returns a key(ID) list by employeeID- all suggestions posted by that employee
-        public List<String> ViewByEmployee(ObjectId EmployeeID)
+        public List<Suggestion> ViewTop3()
         {
-            return (List<String>)memory.dictionary.Select(x => x.Value.getEmployeeID()).Where(x => x.Equals(EmployeeID));
-            /*
-            List<String> list = new List<String>();
-            foreach (KeyValuePair<String, Suggestion> entry in memory.dictionary)
-            {
-                ObjectId ID = entry.Value.getEmployeeID();
-                if (String.Compare(ID.ToString(), EmployeeID.ToString()) == 0)
-                    list.Add(entry.Key);
-            }
-            return list;
-            */
+            return memory.GetAll().Select(x => (Suggestion)x).OrderByDescending(x => x.getAvgRate()).Take(3).ToList();
         }
 
-        public List<String> ViewTop3()
+
+        public List<Suggestion> ViewByCategory(String c)
         {
-            // return (List<String>)memory.dictionary.OrderByDescending(x => x.Value.getAvgRate()).Select(x => x.Key).Take(3);
-            return (List<String>)memory.dictionary.OrderByDescending(x => x.Value.getAvgRate()).Take(3);
+            return memory.GetAll().Select(x => (Suggestion)x).Where(x => x.getCategory().Contains(c)).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         public IEnumerable<Suggestion> Get()
         {
 
-            return _db.Get();
+            return _db.GetAll();
         }
 
 
@@ -33,7 +34,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public ObjectResult Get(ObjectId id)
         {
-            var suggestion = _db.GetObject(id);
+            var suggestion = _db.Get(id);
             if (suggestion == null)
             {
                 return NotFound("not found!");
@@ -55,7 +56,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         public IActionResult Put(ObjectId id, [FromBody] Suggestion a)
         {
             var recId = id;
-            var suggestion = _db.GetObject(recId);
+            var suggestion = _db.Get(recId);
             if (suggestion == null)
             {
                 return NotFound();
@@ -69,7 +70,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(ObjectId id)
         {
-            var suggestion = _db.GetObject(id);
+            var suggestion = _db.Get(id);
             if (suggestion == null)
             {
                 return NotFound();
@@ -82,3 +83,4 @@ namespace VirtualSuggestionBoxApi.Controllers
 
     }
 }
+*/

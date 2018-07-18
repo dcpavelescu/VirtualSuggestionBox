@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,11 +75,11 @@ namespace VirtualSuggestionBoxApi
                 _dbS = client.GetDatabase(MongoDatabaseNameSuggestion);
         }
 
-        public IEnumerable<T> Get()
+        public IEnumerable<T> GetAll()
         {
             return _db.GetCollection<T>(typeof(T).Name).Find(_ => true).ToList();
         }
-        public T GetObject(ObjectId id)
+        public T Get(ObjectId id)
         {
          //   var res = DbQuery<Account>.Eq(a => a.Id, id);
 
@@ -140,7 +140,9 @@ namespace VirtualSuggestionBoxApi
             var res = Builders<Suggestion>.Filter.Eq(ac => ac.SuggestionID, id);
             var operation = _dbS.GetCollection<Suggestion>("Suggestion").FindOneAndDeleteAsync(res);
         }
-        */
+        
 
     }
 }
+
+*/
