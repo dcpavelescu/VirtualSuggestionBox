@@ -1,6 +1,7 @@
 export class Suggestion {
-  Subject: string;
-  Improvement: string;
-  Solution: string;
-  Category: string;
+  id: number;
+  subject: string;
+  improvement: string;
+  solution: string;
+  category: string;
 }
