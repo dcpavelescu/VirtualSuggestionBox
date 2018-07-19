@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using VirtualSuggestionBoxApi.Controllers;
 using VirtualSuggestionBoxApi.Models;
+using VirtualSuggestionBoxApi.Storages;
 
 namespace VirtualSuggestionBoxApi
 {
@@ -26,9 +27,9 @@ namespace VirtualSuggestionBoxApi
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices<TEntity>(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            if (Convert.ToBoolean(Configuration["PersistData"] ?? "false"))
+            if (Convert.ToBoolean(Configuration["PersistData"] ?? "true"))
             {
                 MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(Configuration["MongoDB:ConnectionString"]));
                 settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
@@ -38,7 +39,8 @@ namespace VirtualSuggestionBoxApi
             }
             else
             {
-                // services.AddSingleton(typeof(TEntity), typeof(MongoDBStorage<TEntity>));
+               
+                services.AddSingleton(typeof(BaseEntity), typeof(MemoryStorage<BaseEntity>));
             }
 
             // services.AddTransient(typeof(MongoDBStorage<TEntity>), typeof(MongoDBStorage<TEntity>));

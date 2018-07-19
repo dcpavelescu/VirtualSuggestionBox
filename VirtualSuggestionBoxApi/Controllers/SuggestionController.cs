@@ -16,17 +16,17 @@ namespace VirtualSuggestionBoxApi.Controllers
     public class SuggestionController : ControllerBase
     {
 
-        MongoDBStorage<Suggestion> _db;
-        public SuggestionController()
+        IStorage<Suggestion> _db;
+
+        public SuggestionController(IStorage <Suggestion> _db)
         {
-            _db = new MongoDBStorage<Suggestion>();
+            this._db = _db;
         }
 
         //  GET: api/Suggestion
         // [HttpGet]
         public IEnumerable<Suggestion> Get()
         {
-
             return _db.GetAll();
         }
 
