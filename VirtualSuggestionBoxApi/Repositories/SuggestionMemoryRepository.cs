@@ -10,9 +10,9 @@ namespace VirtualSuggestionBoxApi.Repositories
 {
     public class SuggestionMemoryRepository
     {
-        public MemoryStorage<IEntity> memory;
+        public MemoryStorage<BaseEntity> memory;
 
-        public SuggestionMemoryRepository(MemoryStorage<IEntity> suggestionMemory)
+        public SuggestionMemoryRepository(MemoryStorage<BaseEntity> suggestionMemory)
         {
             memory = suggestionMemory;
         }

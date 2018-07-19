@@ -9,12 +9,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion : IEntity
-    {
-        private String id; // ce este acesta?
-
-        public String Id { get { return id; } set { id = value; } }
-       
+    public class Suggestion : BaseEntity
+    {      
         private String improvement;
         private String solution;
         private String employeeId;

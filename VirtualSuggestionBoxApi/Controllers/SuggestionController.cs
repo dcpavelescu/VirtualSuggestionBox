@@ -78,7 +78,7 @@ namespace VirtualSuggestionBoxApi.Controllers
                 return NotFound();
             }
 
-            _db.Remove(suggestion.Id);
+            _db.Remove(suggestion.GetId());
             return new OkResult();
 
         }

@@ -6,7 +6,7 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi.Storages
 {
-    public class MemoryStorage<TEntity> : IStorage<TEntity> where TEntity : IEntity
+    public class MemoryStorage<TEntity> : IStorage<TEntity> where TEntity : BaseEntity
     {
 
         // dictionarul nu trebuie sa fie vizibil din exteriorul clasei
@@ -14,18 +14,18 @@ namespace VirtualSuggestionBoxApi.Storages
 
         public void GenerateUniqueID(TEntity e)
         {
-            e.Id = e.GetHashCode().ToString();  
+           e.SetId( e.GetHashCode().ToString() );  
         }
        
         public void Add(TEntity e)
         {
             GenerateUniqueID(e);
-            dictionary.Add(e.Id, e);
+            dictionary.Add(e.GetId(), e);
         }
 
         public void Update(TEntity e)
         {
-            dictionary[e.Id] = e;
+            dictionary[e.GetId()] = e;
         }
 
         public void Remove(string Id)

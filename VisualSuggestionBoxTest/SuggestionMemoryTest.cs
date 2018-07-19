@@ -13,7 +13,7 @@ namespace VisualSuggestionBoxTest
     [TestClass]
     public class SuggestionMemoryTest
     {
-        static MemoryStorage<IEntity> mem = new MemoryStorage<IEntity>();
+        static MemoryStorage<BaseEntity> mem = new MemoryStorage<BaseEntity>();
         SuggestionMemoryRepository repository = new SuggestionMemoryRepository(mem);
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace VisualSuggestionBoxTest
             Suggestion s4 = new Suggestion("improv4", "sol4", "emp4");
             repository.memory.Add(s4);
 
-            repository.memory.Remove(s4.Id);
+            repository.memory.Remove( s4.GetId() );
 
             Assert.AreEqual(repository.memory.Count(), 0);
             repository.memory.RemoveAll();
@@ -51,7 +51,7 @@ namespace VisualSuggestionBoxTest
 
             repository.memory.Add(s5);
 
-            Assert.AreEqual( repository.memory.Get(s5.Id), s5);
+            Assert.AreEqual( repository.memory.Get(s5.GetId()), s5);
             repository.memory.RemoveAll();
         }
 
@@ -65,7 +65,7 @@ namespace VisualSuggestionBoxTest
 
             repository.memory.Update(s6);
 
-            Assert.AreEqual(repository.memory.Get(s6.Id), s6);
+            Assert.AreEqual(repository.memory.Get(s6.GetId()), s6);
             repository.memory.RemoveAll();
         }
 
@@ -78,8 +78,8 @@ namespace VisualSuggestionBoxTest
 
             Rate r1 = new Rate(5, "fed1", "emp1");
 
-            repository.AddRate(s7.Id, r1);
-            Suggestion s = (Suggestion)repository.memory.Get(s7.Id);
+            repository.AddRate(s7.GetId(), r1);
+            Suggestion s = (Suggestion)repository.memory.Get(s7.GetId());
 
             Assert.AreEqual( s.GetRatings(), s7.GetRatings());
 
@@ -207,12 +207,12 @@ namespace VisualSuggestionBoxTest
             repository.memory.Add(s26);
             repository.memory.Add(s27);
 
-            repository.AddRate(s22.Id, new Rate(5, "abc", "emp22"));
-            repository.AddRate(s23.Id, new Rate(4, "abc", "emp23"));
-            repository.AddRate(s24.Id, new Rate(3, "abc", "emp24"));
-            repository.AddRate(s25.Id, new Rate(2, "abc", "emp25"));
-            repository.AddRate(s26.Id, new Rate(1, "abc", "emp26"));
-            repository.AddRate(s27.Id, new Rate(1, "abc", "emp27"));
+            repository.AddRate(s22.GetId(), new Rate(5, "abc", "emp22"));
+            repository.AddRate(s23.GetId(), new Rate(4, "abc", "emp23"));
+            repository.AddRate(s24.GetId(), new Rate(3, "abc", "emp24"));
+            repository.AddRate(s25.GetId(), new Rate(2, "abc", "emp25"));
+            repository.AddRate(s26.GetId(), new Rate(1, "abc", "emp26"));
+            repository.AddRate(s27.GetId(), new Rate(1, "abc", "emp27"));
 
             List<Suggestion> testList = repository.memory.GetAll().Cast<Suggestion>().ToList();
             List<Suggestion> listResult = repository.ViewTop3();

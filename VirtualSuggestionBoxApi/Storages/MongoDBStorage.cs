@@ -13,7 +13,7 @@ using System.Security.Authentication;
 
 namespace VirtualSuggestionBoxApi
 {
-        public class MongoDBStorage<TEntity> : IStorage<TEntity> where TEntity : IEntity
+        public class MongoDBStorage<TEntity> : IStorage<TEntity> where TEntity : BaseEntity
     {
             MongoClient _client;
             MongoServerAddress _server;
@@ -86,7 +86,7 @@ namespace VirtualSuggestionBoxApi
         {
          //   var res = DbQuery<Account>.Eq(a => a.Id, id);
 
-            var res = Builders<TEntity>.Filter.Eq( a => a.Id, id);
+            var res = Builders<TEntity>.Filter.Eq( a => a.GetId(), id);
    
             return _db.GetCollection<TEntity>(typeof(TEntity).Name).Find(res).SingleOrDefault();
         }
@@ -110,12 +110,12 @@ namespace VirtualSuggestionBoxApi
         public void Update(TEntity a)
         {
 
-            var res = Builders<TEntity>.Filter.Eq(ac => ac.Id, a.Id);
+            var res = Builders<TEntity>.Filter.Eq(ac => ac.GetId(), a.GetId());
             _db.GetCollection<TEntity>(typeof(TEntity).Name).ReplaceOneAsync(res, a);
         }
         public void Remove(String id)
         {
-            var res = Builders<TEntity>.Filter.Eq(ac => ac.Id, id);
+            var res = Builders<TEntity>.Filter.Eq(ac => ac.GetId(), id);
             var operation = _db.GetCollection<TEntity>(typeof(TEntity).Name).FindOneAndDeleteAsync(res);
         }
         public void RemoveAll()
