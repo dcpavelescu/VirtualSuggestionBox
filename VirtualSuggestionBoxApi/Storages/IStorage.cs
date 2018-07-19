@@ -8,7 +8,7 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi
 {
-    public interface IStorage<TEntity> where TEntity : IEntity
+    public interface IStorage<TEntity> where TEntity : BaseEntity
     {   
         void Add(TEntity e);
         void Update(TEntity e);

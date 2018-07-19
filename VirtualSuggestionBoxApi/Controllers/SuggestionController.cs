@@ -15,46 +15,40 @@ namespace VirtualSuggestionBoxApi.Controllers
     [ApiController]
     public class SuggestionController : ControllerBase
     {
+        private IStorage<Suggestion> _db;
 
-        MongoDBStorage<Suggestion> _db;
-        public SuggestionController()
+        public SuggestionController(IStorage <Suggestion> _db)
         {
-            _db = new MongoDBStorage<Suggestion>();
+            this._db = _db;
         }
 
         //  GET: api/Suggestion
         // [HttpGet]
         public IEnumerable<Suggestion> Get()
         {
-
             return _db.GetAll();
         }
 
 
         // GET: api/Suggestion/5
         [HttpGet("{id}")]
-        public ObjectResult Get(String id)
+        public Suggestion Get(String id)
         {
             var suggestion = _db.Get(id);
-            if (suggestion == null)
-            {
-                return NotFound("not found!");
-            }
-            return new ObjectResult(suggestion);
+            return suggestion;
         }
 
         // POST: api/Suggestion
         [HttpPost]
-        public IActionResult Post([FromBody] Suggestion a)
+        public ActionResult Post([FromBody] Suggestion a)
         {
             _db.Add(a);
-            return new OkObjectResult(a);
-
+            return Ok();
         }
 
         // PUT: api/Suggestion/5
         [HttpPut("{id}")]
-        public IActionResult Put(String id, [FromBody] Suggestion a)
+        public ActionResult Put(String id, [FromBody] Suggestion a)
         {
             var recId = id;
             var suggestion = _db.Get(recId);
@@ -65,12 +59,12 @@ namespace VirtualSuggestionBoxApi.Controllers
 
             //BETA _db.Update(recId, a);
             _db.Update(a);
-            return new OkResult();
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(String id)
+        public ActionResult Delete(String id)
         {
             var suggestion = _db.Get(id);
             if (suggestion == null)
@@ -79,8 +73,7 @@ namespace VirtualSuggestionBoxApi.Controllers
             }
 
             _db.Remove(suggestion.Id);
-            return new OkResult();
-
+            return Ok();
         }
 
     }

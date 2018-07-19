@@ -9,12 +9,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion : IEntity
-    {
-        private String id; // ce este acesta?
-
-        public String Id { get { return id; } set { id = value; } }
-       
+    public class Suggestion : BaseEntity
+    {      
         private String improvement;
         private String solution;
         private String employeeId;
@@ -38,7 +34,7 @@ namespace VirtualSuggestionBoxApi.Models
             return employeeId;
         }
 
-        public void SetEmployeeId(String employeeId)    // aici era this.employeeId = Id, cu toate ca parametrul metodei era String EmployeeId
+        public void SetEmployeeId(String employeeId)
         {
             this.employeeId = employeeId;
         }
@@ -62,6 +58,11 @@ namespace VirtualSuggestionBoxApi.Models
         public List<String> GetCategory()
         {
             return category;
+        }
+
+        public void SetCategory( List<String> category )
+        {
+            this.category = category;
         }
 
         public List<Rate> GetRatings()

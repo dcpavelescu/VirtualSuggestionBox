@@ -6,15 +6,13 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi.Storages
 {
-    public class MemoryStorage<TEntity> : IStorage<TEntity> where TEntity : IEntity
+    public class MemoryStorage<TEntity> : IStorage<TEntity> where TEntity : BaseEntity
     {
-
-        // dictionarul nu trebuie sa fie vizibil din exteriorul clasei
         private Dictionary<String, TEntity> dictionary = new Dictionary<String, TEntity>(); 
 
         public void GenerateUniqueID(TEntity e)
         {
-            e.Id = e.GetHashCode().ToString();  
+           e.Id = e.GetHashCode().ToString();  
         }
        
         public void Add(TEntity e)

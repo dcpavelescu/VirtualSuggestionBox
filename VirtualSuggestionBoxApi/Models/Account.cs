@@ -22,9 +22,8 @@ namespace VirtualSuggestionBoxApi.Models
         }
     }
     */
-    public class Account :IEntity
+    public class Account :BaseEntity
     {
-        public String Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
