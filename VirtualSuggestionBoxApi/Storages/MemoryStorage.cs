@@ -8,24 +8,22 @@ namespace VirtualSuggestionBoxApi.Storages
 {
     public class MemoryStorage<TEntity> : IStorage<TEntity> where TEntity : BaseEntity
     {
-
-        // dictionarul nu trebuie sa fie vizibil din exteriorul clasei
         private Dictionary<String, TEntity> dictionary = new Dictionary<String, TEntity>(); 
 
         public void GenerateUniqueID(TEntity e)
         {
-           e.SetId( e.GetHashCode().ToString() );  
+           e.Id = e.GetHashCode().ToString();  
         }
        
         public void Add(TEntity e)
         {
             GenerateUniqueID(e);
-            dictionary.Add(e.GetId(), e);
+            dictionary.Add(e.Id, e);
         }
 
         public void Update(TEntity e)
         {
-            dictionary[e.GetId()] = e;
+            dictionary[e.Id] = e;
         }
 
         public void Remove(string Id)

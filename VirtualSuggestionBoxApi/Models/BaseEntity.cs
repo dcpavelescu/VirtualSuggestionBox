@@ -7,19 +7,9 @@ using System.Threading.Tasks;
 namespace VirtualSuggestionBoxApi.Models
 {
 
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        private String Id;
-
-        public void SetId( String Id )
-        {
-            this.Id = Id;
-        }
-
-        public String GetId()
-        {
-            return Id;
-        }
+        public String Id;
 
     }
 
