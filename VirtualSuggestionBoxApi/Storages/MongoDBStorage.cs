@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using System;
 using System.Configuration;
 using Microsoft.IdentityModel.Protocols;
 using VirtualSuggestionBoxApi.Models;
@@ -27,8 +26,6 @@ namespace VirtualSuggestionBoxApi
             var MongoDatabaseNameSuggestion = "Suggestion";
             var MongoUsername = "";
             var MongoPassword = "";
-            var MongoPort = 27017;
-            var MongoHost = "localhost";
 
             var credential = MongoCredential.CreateMongoCRCredential
                             (MongoDatabaseName,
@@ -60,7 +57,7 @@ namespace VirtualSuggestionBoxApi
 
                 var settings = new MongoClientSettings
                 {
-                    Credentials = new[] { credential },
+                    Credential = credential,
                     Server = new MongoServerAddress(MongoHost, Convert.ToInt32(MongoPort))
                 };
 

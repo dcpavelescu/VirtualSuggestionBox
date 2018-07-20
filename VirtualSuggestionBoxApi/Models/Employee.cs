@@ -7,10 +7,10 @@ namespace VirtualSuggestionBoxApi.Models
 {
     public class Employee : BaseEntity
     {
-        private String name;
-        private String user;
-        private String email;
-        private String unit;
+        public String name;
+        public String user;
+        public String email;
+        public String unit;
     }
 
 }
