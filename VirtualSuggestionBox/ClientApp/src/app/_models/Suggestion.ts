@@ -1,6 +1,10 @@
+import { Rate } from "./Rate";
+
 export class Suggestion {
-  Id: number;
-  Improvement: string;
-  Solution: string;
-  Date: Date;
+  improvement: string;
+  solution: string;
+  date: Date;
+  ratings: Rate[];
+  category: string[];
+  id: string;
 }

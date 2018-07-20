@@ -60,11 +60,6 @@ namespace VirtualSuggestionBoxApi.Repositories
             suggestionStorage.Update(s);
         }
 
-        public List<Suggestion> ViewByEmployee(String EmployeeId)
-        {
-            return suggestionStorage.GetAll().Where( x => x.EmployeeId.Equals(EmployeeId) ).ToList();
-        }
-
         public List<Suggestion> ViewTop3()
         {
             return suggestionStorage.GetAll().OrderByDescending( x => x.GetAvgRate() ).Take(3).ToList();

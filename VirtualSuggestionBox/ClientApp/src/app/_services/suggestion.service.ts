@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { Suggestion } from '../_models/Suggestion';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class SuggestionService {
 
   private serviceURL = "http://localhost:52763/api/suggestion";
 
-  getAll() {
+  getAll(): Observable<Suggestion[]> {
     return this.http.get<Suggestion[]>(this.serviceURL);
   }
   getById(id: number) {
@@ -25,7 +26,7 @@ export class SuggestionService {
   }
 
   update(suggestion: Suggestion) {
-    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.Id, suggestion);
+    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.id, suggestion);
   }
 
   delete(id: number) {

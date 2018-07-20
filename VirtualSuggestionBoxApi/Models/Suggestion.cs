@@ -13,19 +13,17 @@ namespace VirtualSuggestionBoxApi.Models
     {      
         public String Improvement;
         public String Solution;
-        public String EmployeeId;
         public DateTime Date;
         public List<Rate> Ratings;
         public List<String> Category;
         private Double avgRate;
 
-        public Suggestion(string improvement, string solution, String employeeId)
+        public Suggestion(string improvement, string solution)
         {
             Ratings = new List<Rate>();
             Category = new List<String>();
             Improvement = improvement;
             Solution = solution;
-            EmployeeId = employeeId;
             Date = DateTime.Now;
         }
 
@@ -36,7 +34,7 @@ namespace VirtualSuggestionBoxApi.Models
 
         public void SetAvgRate()
         {
-            double media = Ratings.Select( x => x.GetScore() ).Sum();
+            double media = Ratings.Select( x => x.Score).Sum();
             avgRate = media / Ratings.Count();
         }
 
