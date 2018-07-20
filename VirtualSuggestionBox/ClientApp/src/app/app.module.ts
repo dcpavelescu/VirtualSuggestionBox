@@ -22,7 +22,6 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'registration', component: RegistrationComponent },
-  //{ path: 'api/suggestion', component: 'http://localhost:4200/api/suggestion' }
 ];
 
 @NgModule({

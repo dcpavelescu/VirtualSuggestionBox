@@ -11,10 +11,9 @@ import { Suggestion } from '../_models/Suggestion';
 export class SuggestionService {
   constructor(private http: HttpClient) { }
 
-  private serviceURL = "https://localhost:44361/api/suggestion";
+  private serviceURL = "http://localhost:52763/api/suggestion";
 
   getAll() {
-    console.log(environment);
     return this.http.get<Suggestion[]>(this.serviceURL);
   }
   getById(id: number) {
@@ -26,7 +25,7 @@ export class SuggestionService {
   }
 
   update(suggestion: Suggestion) {
-    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.id, suggestion);
+    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.Id, suggestion);
   }
 
   delete(id: number) {
