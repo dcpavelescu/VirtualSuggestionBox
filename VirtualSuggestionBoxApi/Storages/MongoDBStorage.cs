@@ -32,7 +32,7 @@ namespace VirtualSuggestionBoxApi
                              MongoUsername,
                              MongoPassword);
 
-            MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl("mongodb://localhost:27017/Account"));
+             MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl("mongodb://localhost:27017/Account"));
             settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
             _client = new MongoClient(settings);
             

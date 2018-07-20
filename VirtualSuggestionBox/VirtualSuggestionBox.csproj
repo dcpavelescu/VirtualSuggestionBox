@@ -138,6 +138,8 @@
     <None Include="ClientApp\src\app\_models\Suggestion.ts" />
     <None Include="ClientApp\src\app\_models\user.ts" />
     <None Include="ClientApp\src\app\_services\authentication.service.ts" />
+    <None Include="ClientApp\src\app\_services\suggestion.service.ts" />
+    <None Include="ClientApp\src\app\_services\user.service.ts" />
     <None Include="ClientApp\src\assets\.gitkeep" />
     <None Include="ClientApp\src\environments\environment.prod.ts" />
     <None Include="ClientApp\src\environments\environment.ts" />
