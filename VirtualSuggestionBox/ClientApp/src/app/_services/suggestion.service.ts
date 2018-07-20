@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Suggestion } from '../_models/index';
 import { environment } from '../../environments/environment';
+import { Suggestion } from '../_models/Suggestion';
 
 @Injectable()
 export class SuggestionService {

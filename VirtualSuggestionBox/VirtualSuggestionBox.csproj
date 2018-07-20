@@ -118,8 +118,6 @@
     <None Include="ClientApp\src\app\home\home.component.html" />
     <None Include="ClientApp\src\app\home\home.component.spec.ts" />
     <None Include="ClientApp\src\app\home\home.component.ts" />
-    <None Include="ClientApp\src\app\home\index.ts" />
-    <None Include="ClientApp\src\app\login\index.ts" />
     <None Include="ClientApp\src\app\login\login.component.css" />
     <None Include="ClientApp\src\app\login\login.component.html" />
     <None Include="ClientApp\src\app\login\login.component.spec.ts" />
@@ -137,8 +135,6 @@
     <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.spec.ts" />
     <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.ts" />
     <None Include="ClientApp\src\app\_guards\auth.guard.ts" />
-    <None Include="ClientApp\src\app\_guards\index.ts" />
-    <None Include="ClientApp\src\app\_models\index.ts" />
     <None Include="ClientApp\src\app\_models\Suggestion.ts" />
     <None Include="ClientApp\src\app\_models\user.ts" />
     <None Include="ClientApp\src\app\_services\authentication.service.ts" />
