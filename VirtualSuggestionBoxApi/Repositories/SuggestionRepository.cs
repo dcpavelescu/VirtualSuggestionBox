@@ -55,14 +55,14 @@ namespace VirtualSuggestionBoxApi.Repositories
         public void AddRate(String Id, Rate r)
         {
             Suggestion s = suggestionStorage.Get(Id);
-            s.AddRate(r);
+            s.Ratings.Add(r);
             s.SetAvgRate();
             suggestionStorage.Update(s);
         }
 
         public List<Suggestion> ViewByEmployee(String EmployeeId)
         {
-            return suggestionStorage.GetAll().Where( x => x.GetEmployeeId().Equals(EmployeeId) ).ToList();
+            return suggestionStorage.GetAll().Where( x => x.EmployeeId.Equals(EmployeeId) ).ToList();
         }
 
         public List<Suggestion> ViewTop3()
@@ -72,7 +72,7 @@ namespace VirtualSuggestionBoxApi.Repositories
 
         public List<Suggestion> ViewByCategory(String c)
         {
-            return suggestionStorage.GetAll().Where( x => x.GetCategory().Contains(c) ).ToList();
+            return suggestionStorage.GetAll().Where( x => x.Category.Contains(c) ).ToList();
         }
 
     }

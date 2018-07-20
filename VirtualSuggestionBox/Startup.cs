@@ -40,7 +40,7 @@ namespace VirtualSuggestionBox
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

@@ -11,9 +11,11 @@ import { Suggestion } from '../_models/Suggestion';
 export class SuggestionService {
   constructor(private http: HttpClient) { }
 
+  private serviceURL = "https://localhost:44361/api/suggestion";
+
   getAll() {
     console.log(environment);
-    return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion`);
+    return this.http.get<Suggestion[]>(this.serviceURL);
   }
   getById(id: number) {
     return this.http.get(`${environment.apiUrl}/api/suggestion/` + id);
