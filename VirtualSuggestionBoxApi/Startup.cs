@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using VirtualSuggestionBoxApi.Controllers;
 using VirtualSuggestionBoxApi.Models;
+using VirtualSuggestionBoxApi.Repositories;
+using VirtualSuggestionBoxApi.Storages;
 
 namespace VirtualSuggestionBoxApi
 {
@@ -26,25 +28,23 @@ namespace VirtualSuggestionBoxApi
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices<T>(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            if (Convert.ToBoolean(Configuration["PersistData"] ?? "false"))
+            if (Convert.ToBoolean(Configuration["PersistData"] ?? "true"))
             {
                 MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(Configuration["MongoDB:ConnectionString"]));
                 settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
                 services.AddSingleton<IMongoClient, MongoClient>(client => new MongoClient(settings));
-               // services.AddTransient(typeof(Account), typeof(MongoDBStorage));
-
+                services.AddTransient(typeof(IStorage<Suggestion>), typeof(MongoDBStorage<Suggestion>));
             }
             else
             {
-               // services.AddSingleton(typeof(T), typeof(MongoDBStorage<T>));
+                services.AddTransient(typeof(IStorage<Suggestion>), typeof(MemoryStorage<Suggestion>));
             }
-            
-           // services.AddTransient(typeof(MongoDBStorage<T>), typeof(MongoDBStorage<T>));
+
+            services.AddTransient(typeof(SuggestionRepository), typeof(SuggestionRepository));
 
             services.AddSingleton<IConfiguration>(Configuration);
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

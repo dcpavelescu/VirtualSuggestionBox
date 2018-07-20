@@ -22,17 +22,17 @@ namespace VirtualSuggestionBoxApi.Models
         }
     }
     */
-    public class Account :TmodelInterface
+    public class Account :BaseEntity
     {
-        public ObjectId Id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        private string email { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
+        private string email { get; set; }
         private string rDate { get; set; }
         private string accessLevel { get; set; }
         private string firstName { get; set; }
         private string secondName { get; set; }
+
         [BsonExtraElements]
         public BsonDocument CatchAll { get; set; }
     }

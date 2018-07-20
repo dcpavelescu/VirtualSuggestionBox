@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,27 +8,14 @@ using VirtualSuggestionBoxApi.Models;
 
 namespace VirtualSuggestionBoxApi
 {
-    public interface IStorage<T>
-    {
-        /*
-        void CreateStorage();
-        void EnumElements();
-        void OpenStorage();
-        void Revert();
-        void StatO();
-
-        void Commit();
-
-        void Update();
-        void Remove();
-        void Create();
-        */
-        T Create(T s);
-        void Remove(ObjectId ID);
-        T GetObject(ObjectId ID);
-        void Update(ObjectId id, T a);
-        IEnumerable<T> Get(); //<--GetAll()
-        //void Add();
-
+    public interface IStorage<TEntity> where TEntity : BaseEntity
+    {   
+        void Add(TEntity e);
+        void Update(TEntity e);
+        void Remove(String Id);
+        void RemoveAll();
+        TEntity Get(String Id);
+        IEnumerable<TEntity> GetAll();
+        long Count();
     }
 }

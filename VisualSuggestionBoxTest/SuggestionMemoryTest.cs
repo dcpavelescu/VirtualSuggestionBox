@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using VirtualSuggestionBoxApi.Storages;
 using VirtualSuggestionBoxApi.Controllers;
-using MongoDB.Bson;
 using VirtualSuggestionBoxApi;
 using VirtualSuggestionBoxApi.Repositories;
 using VirtualSuggestionBoxApi.Models;
@@ -14,124 +13,234 @@ namespace VisualSuggestionBoxTest
     [TestClass]
     public class SuggestionMemoryTest
     {
-        static SuggestionMemory mem = new SuggestionMemory();
-        SuggestionMemoryRepository repository = new SuggestionMemoryRepository(mem);
+        public static MemoryStorage<Suggestion> mem = new MemoryStorage<Suggestion>();
+        SuggestionRepository repository = new SuggestionRepository(mem);
 
         [TestMethod]
         public void TestAdd()
         {
 
-            Suggestion s1 = new Suggestion("improv1", "sol1", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s2 = new Suggestion("improv2", "sol2", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s3 = new Suggestion("improv3", "sol3", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s1 = new Suggestion("improv1", "sol1", "emp1");
+            Suggestion s2 = new Suggestion("improv2", "sol2", "emp2");
+            Suggestion s3 = new Suggestion("improv3", "sol3", "emp3");
 
-            repository.memory.Add(s1);
-            repository.memory.Add(s2);
-            repository.memory.Add(s3);
+            repository.Add(s1);
+            repository.Add(s2);
+            repository.Add(s3);
 
-            Assert.AreEqual(repository.memory.dictionary.Count(), 3);
-
+            Assert.AreEqual(repository.Count(), 3);
+            repository.RemoveAll();
         }
 
         [TestMethod]
         public void TestDelete()
         {
-            Suggestion s4 = new Suggestion("improv4", "sol4", MongoDB.Bson.ObjectId.GenerateNewId() );
+            Suggestion s4 = new Suggestion("improv4", "sol4", "emp4");
+            repository.Add(s4);
 
-            repository.memory.Add(s4);
+            repository.Remove( s4.Id );
 
-            repository.memory.Remove(s4.getID());
-
-            Assert.AreEqual(repository.memory.dictionary.Count(), 3);
-
+            Assert.AreEqual(repository.Count(), 0);
+            repository.RemoveAll();
         }
 
         [TestMethod]
         public void TestGet()
         {
-            Suggestion s5 = new Suggestion("improv5", "sol5", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s5 = new Suggestion("improv5", "sol5", "emp5");
 
-            repository.memory.Add(s5);
+            repository.Add(s5);
 
-            Assert.AreEqual( repository.memory.Get(s5.getID()), s5);
-
+            Assert.AreEqual( repository.Get(s5.Id), s5);
+            repository.RemoveAll();
         }
 
         [TestMethod]
         public void TestUpdate()
         {
-            Suggestion s6 = new Suggestion("improv6", "sol6", MongoDB.Bson.ObjectId.GenerateNewId());
-            repository.memory.Add(s6);
+            Suggestion s6 = new Suggestion("improv6", "sol6","emp6");
+            repository.Add(s6);
 
-            s6.setEmployeeId( new ObjectId("507f1f77bcf86cd799439011") );
+            s6.SetEmployeeId("idnou");
 
-            repository.memory.Update(s6);
+            repository.Update(s6);
 
-            Assert.AreEqual(repository.memory.Get(s6.getID()), s6);
-
+            Assert.AreEqual(repository.Get(s6.Id), s6);
+            repository.RemoveAll();
         }
 
         [TestMethod]
         public void TestAddRate()
         {
-            Suggestion s7 = new Suggestion("improv7", "sol7", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s7 = new Suggestion("improv7", "sol7", "emp7");
 
-            repository.memory.Add(s7);
+            repository.Add(s7);
 
             Rate r1 = new Rate(5, "fed1", "emp1");
 
-            repository.AddRate(s7.getID(), r1);
+            repository.AddRate(s7.Id, r1);
+            Suggestion s = repository.Get(s7.Id);
 
-            Assert.AreEqual( repository.memory.Get(s7.getID()).getRateList(), s7.getRateList() );
+            Assert.AreEqual( s.GetRatings(), s7.GetRatings());
+
+            repository.RemoveAll();
         }
 
         [TestMethod]
         public void TestGetAll()
         {
-            Suggestion s8 = new Suggestion("improv8", "sol8", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s9 = new Suggestion("improv9", "sol9", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s10 = new Suggestion("improv10", "sol10", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s11 = new Suggestion("improv11", "sol11", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s12 = new Suggestion("improv12", "sol12", MongoDB.Bson.ObjectId.GenerateNewId());
-            Suggestion s13 = new Suggestion("improv13", "sol13", MongoDB.Bson.ObjectId.GenerateNewId());
+            Suggestion s8 = new Suggestion("improv8", "sol8", "emp8");
+            Suggestion s9 = new Suggestion("improv9", "sol9", "emp9");
+            Suggestion s10 = new Suggestion("improv10", "sol10", "emp10");
+            Suggestion s11 = new Suggestion("improv11", "sol11", "emp11");
+            Suggestion s12 = new Suggestion("improv12", "sol12", "emp12");
+            Suggestion s13 = new Suggestion("improv13", "sol13", "emp13");
 
-            repository.memory.Add(s8);
-            repository.memory.Add(s9);
-            repository.memory.Add(s10);
-            repository.memory.Add(s11);
-            repository.memory.Add(s12);
-            repository.memory.Add(s13);
+            repository.Add(s8);
+            repository.Add(s9);
+            repository.Add(s10);
+            repository.Add(s11);
+            repository.Add(s12);
+            repository.Add(s13);
 
+            List<Suggestion> listResult = repository.GetAll().ToList();
 
-            List<String> listId = repository.memory.GetAll();
+            Assert.AreEqual(listResult.Count, repository.Count() );
 
-            Assert.AreEqual( listId.Count, repository.memory.dictionary.Keys.ToList().Count );
+            List<Suggestion> testList = new List<Suggestion> { s8, s9, s10, s11, s12, s13 };
 
-            for(var i = 0; i < listId.Count; i++)
+            for ( var i = 0; i < listResult.Count; i++ )
             {
-                Assert.AreEqual( listId[i], repository.memory.dictionary.Keys.ToList()[i] );
+                Assert.AreEqual( testList[i], listResult[i] );
             }
+
+            repository.RemoveAll();
+            testList.Clear();
+            listResult.Clear();
         }
 
-        /*
         [TestMethod]
-        public void TestSuggestionSaveInMemory()
+        public void TestViewByCategory()
         {
-             nu exista SuggestionInMemory
-            SuggestionInMemory suggestionInMemory = new SuggestionInMemory();
-            suggestionInMemory.dictionary.Add("id1", new VirtualSuggestionBoxApi.Models.Suggestion("dasdsad", "dssdsa", "employee1"));
-            suggestionInMemory.dictionary.Add("id2", new VirtualSuggestionBoxApi.Models.Suggestion("ggdgd", "fgfd", "employee1"));
-            suggestionInMemory.dictionary.Add("id3", new VirtualSuggestionBoxApi.Models.Suggestion("gfdgd", "gfgd", "employee1"));
+            Suggestion s14 = new Suggestion("improv14", "sol14", "emp14");
+            s14.SetCategory( new List<String>() { "A", "B", "C", "D" } );
+            repository.Add(s14);
 
-            Assert.AreEqual(suggestionInMemory.dictionary.Count, 3);
-            
+            Suggestion s15 = new Suggestion("improv15", "sol15", "emp15");
+            s15.SetCategory(new List<String>() { "A", "B", "C" });
+            repository.Add(s15);
 
-              AccountController a1 = new AccountController();
-              System.Diagnostics.Debug.WriteLine(a1.Get(ObjectId.Parse("5b4a61e8c55178134c79a7c5")));
-            var _db = new MongoDBStorage();
-            Assert.IsNotNull(_db.GetAccounts());
-            System.Diagnostics.Debug.WriteLine(_db.GetAccounts());
+            Suggestion s16 = new Suggestion("improv16", "sol16", "emp16");
+            s16.SetCategory(new List<String>() { "A", "B" });
+            repository.Add(s16);
+
+            Suggestion s17 = new Suggestion("improv17", "sol17", "emp17");
+            s17.SetCategory(new List<String>() { "A" });
+            repository.Add(s17);
+
+            List<Suggestion> testList = repository.GetAll().ToList();
+            List<Suggestion> listResult = repository.ViewByCategory( "A" );
+
+            Assert.AreEqual( testList.Count, listResult.Count );
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );
+            }
+
+            repository.RemoveAll();
+            listResult.Clear();
+            testList.Clear();
         }
-        */
+
+        [TestMethod]
+        public void TestViewByEmployee()
+        {
+            Suggestion s18 = new Suggestion("improv18", "sol18", "emp18");
+            repository.Add(s18);
+
+            Suggestion s19 = new Suggestion("improv19", "sol19", "emp18");
+            repository.Add(s19);
+
+            Suggestion s20 = new Suggestion("improv20", "sol20", "emp19");
+            repository.Add(s20);
+
+            Suggestion s21 = new Suggestion("improv21", "sol21", "emp19");
+            repository.Add(s21);
+
+            List<Suggestion> listResult = repository.ViewByEmployee( "emp18" );
+            List<Suggestion> testList = repository.GetAll().ToList();
+
+            Assert.AreEqual( listResult.Count, 2 );
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );       
+            }
+
+            repository.RemoveAll();
+            listResult.Clear();
+            testList.Clear();
+        }
+
+        [TestMethod]
+        public void TestViewTop3()
+        {
+            Suggestion s22 = new Suggestion("improv22", "sol22", "emp22");
+            Suggestion s23 = new Suggestion("improv23", "sol23", "emp23");
+            Suggestion s24 = new Suggestion("improv24", "sol24", "emp24");
+            Suggestion s25 = new Suggestion("improv25", "sol25", "emp25");
+            Suggestion s26 = new Suggestion("improv26", "sol26", "emp26");
+            Suggestion s27 = new Suggestion("improv27", "sol27", "emp27");
+
+            repository.Add(s22);
+            repository.Add(s23);
+            repository.Add(s24);
+            repository.Add(s25);
+            repository.Add(s26);
+            repository.Add(s27);
+
+            repository.AddRate(s22.Id, new Rate(5, "abc", "emp22"));
+            repository.AddRate(s23.Id, new Rate(4, "abc", "emp23"));
+            repository.AddRate(s24.Id, new Rate(3, "abc", "emp24"));
+            repository.AddRate(s25.Id, new Rate(2, "abc", "emp25"));
+            repository.AddRate(s26.Id, new Rate(1, "abc", "emp26"));
+            repository.AddRate(s27.Id, new Rate(1, "abc", "emp27"));
+
+            List<Suggestion> testList = repository.GetAll().ToList();
+            List<Suggestion> listResult = repository.ViewTop3();
+
+            Assert.AreEqual( listResult.Count, 3 );
+
+            for ( var i = 0; i < listResult.Count; i++ )
+            {
+                Assert.AreEqual( testList[i], listResult[i] );
+            }
+
+            repository.RemoveAll();
+            listResult.Clear();
+            testList.Clear();
+        }
+
+        [TestMethod]
+        public void TestCount()
+        {
+            Suggestion s28 = new Suggestion("improv28", "sol28", "emp28");
+            repository.Add(s28);
+
+            Suggestion s29 = new Suggestion("improv29", "sol29", "emp29");
+            repository.Add(s29);
+
+            Suggestion s30 = new Suggestion("improv30", "sol30", "emp30");
+            repository.Add(s30);
+
+            List <Suggestion> listResult = repository.GetAll().ToList();
+
+            Assert.AreEqual( listResult.Count, repository.Count() );
+
+            repository.RemoveAll();
+            listResult.Clear();
+        }
+
     }
 }

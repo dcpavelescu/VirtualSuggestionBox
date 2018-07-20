@@ -9,80 +9,65 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace VirtualSuggestionBoxApi.Models
 {
-    public class Suggestion : TmodelInterface
-    {
-        [BsonId]
-        public ObjectId Id { get; set; }
-        private String Improvement;
-        private String Solution;
-        [BsonId]
-        private ObjectId EmployeeID;
-        private DateTime Date;
-        private List<Rate> Ratings;
-        private List<String> Category;
+    public class Suggestion : BaseEntity
+    {      
+        private String improvement;
+        private String solution;
+        private String employeeId;
+        private DateTime date;
+        private List<Rate> ratings;
+        private List<String> category;
         private Double avgRate;
 
-        //public object Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public Suggestion(string improvement, string solution, ObjectId employeeID)
+        public Suggestion(string improvement, string solution, String employeeId)
         {
-            Ratings = new List<Rate>();
-            Category = new List<String>();
-            Improvement = improvement;
-            Solution = solution;
-            EmployeeID = employeeID;
-            Date = DateTime.Now;
+            ratings = new List<Rate>();
+            category = new List<String>();
+            this.improvement = improvement;
+            this.solution = solution;
+            this.employeeId = employeeId;
+            date = DateTime.Now;
         }
 
-        public void addRate(Rate r)
+        public String GetEmployeeId()
         {
-            Ratings.Add(r);
+            return employeeId;
         }
 
-        //calculates the average rating
-        public void setAvgRate()
+        public void SetEmployeeId(String employeeId)
         {
-            double media = 0;
-            foreach (Rate r in Ratings)
-            {
-                media += r.getScore();
-            }
-            media /= Ratings.Count();
-            this.avgRate = media;
+            this.employeeId = employeeId;
         }
 
-        public double getAvgRate()
+       public double GetAvgRate()
         {
             return avgRate;
         }
-        public List<String> getCategory()
+
+        public void SetAvgRate()
         {
-            return Category;
+            double media = ratings.Select( x => x.GetScore() ).Sum();
+            avgRate = media / ratings.Count();
         }
 
-        public ObjectId getEmployeeID()
+        public void AddRate(Rate rate)
         {
-            return EmployeeID;
+            ratings.Add(rate);
         }
 
-        public void setEmployeeId(ObjectId newId)
+        public List<String> GetCategory()
         {
-            this.EmployeeID = newId;
+            return category;
         }
 
-        public String getID()
+        public void SetCategory( List<String> category )
         {
-            return  Id.ToString();
+            this.category = category;
         }
 
-        public void setID(ObjectId newId)
+        public List<Rate> GetRatings()
         {
-            Id = newId;
-        }
-
-        public List<Rate> getRateList()
-        {
-            return Ratings;
+            return ratings;
         }
     }
 }
