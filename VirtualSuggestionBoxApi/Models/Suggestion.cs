@@ -11,32 +11,20 @@ namespace VirtualSuggestionBoxApi.Models
 {
     public class Suggestion : BaseEntity
     {      
-        private String improvement;
-        private String solution;
-        private String employeeId;
-        private DateTime date;
-        private List<Rate> ratings;
-        private List<String> category;
+        public String Improvement;
+        public String Solution;
+        public DateTime Date;
+        public List<Rate> Ratings;
+        public List<String> Category;
         private Double avgRate;
 
-        public Suggestion(string improvement, string solution, String employeeId)
+        public Suggestion(string improvement, string solution)
         {
-            ratings = new List<Rate>();
-            category = new List<String>();
-            this.improvement = improvement;
-            this.solution = solution;
-            this.employeeId = employeeId;
-            date = DateTime.Now;
-        }
-
-        public String GetEmployeeId()
-        {
-            return employeeId;
-        }
-
-        public void SetEmployeeId(String employeeId)
-        {
-            this.employeeId = employeeId;
+            Ratings = new List<Rate>();
+            Category = new List<String>();
+            Improvement = improvement;
+            Solution = solution;
+            Date = DateTime.Now;
         }
 
        public double GetAvgRate()
@@ -46,28 +34,9 @@ namespace VirtualSuggestionBoxApi.Models
 
         public void SetAvgRate()
         {
-            double media = ratings.Select( x => x.GetScore() ).Sum();
-            avgRate = media / ratings.Count();
+            double media = Ratings.Select( x => x.Score).Sum();
+            avgRate = media / Ratings.Count();
         }
 
-        public void AddRate(Rate rate)
-        {
-            ratings.Add(rate);
-        }
-
-        public List<String> GetCategory()
-        {
-            return category;
-        }
-
-        public void SetCategory( List<String> category )
-        {
-            this.category = category;
-        }
-
-        public List<Rate> GetRatings()
-        {
-            return ratings;
-        }
     }
 }

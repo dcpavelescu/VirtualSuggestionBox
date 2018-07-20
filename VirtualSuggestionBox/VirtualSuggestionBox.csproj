@@ -135,6 +135,7 @@
     <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.spec.ts" />
     <None Include="ClientApp\src\app\suggestions-view\suggestions-view.component.ts" />
     <None Include="ClientApp\src\app\_guards\auth.guard.ts" />
+    <None Include="ClientApp\src\app\_models\Rate.ts" />
     <None Include="ClientApp\src\app\_models\Suggestion.ts" />
     <None Include="ClientApp\src\app\_models\user.ts" />
     <None Include="ClientApp\src\app\_services\authentication.service.ts" />

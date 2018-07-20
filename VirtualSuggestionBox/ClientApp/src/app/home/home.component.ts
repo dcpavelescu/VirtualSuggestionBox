@@ -9,13 +9,12 @@ import { Suggestion } from '../_models/Suggestion';
 })
 export class HomeComponent implements OnInit {
 
-  private _suggestions : Suggestion[];
+  private suggestions : Suggestion[];
 
   constructor(private suggestionService: SuggestionService){}
 
   ngOnInit() {
-    this.suggestionService.getAll().subscribe(suggestions => this._suggestions = suggestions);
-    console.log(this._suggestions);
+    this.suggestionService.getAll().subscribe(suggestions => this.suggestions = suggestions);
   }
 
 }

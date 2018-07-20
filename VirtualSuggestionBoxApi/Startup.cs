@@ -45,6 +45,16 @@ namespace VirtualSuggestionBoxApi
             services.AddTransient(typeof(SuggestionRepository), typeof(SuggestionRepository));
 
             services.AddSingleton<IConfiguration>(Configuration);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                 builder =>
+                 {
+                     builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                 });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -60,8 +70,10 @@ namespace VirtualSuggestionBoxApi
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
+            app.UseCors("AllowAllOrigins");
+
+            //app.UseHttpsRedirection();
+            //app.UseAuthentication();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {

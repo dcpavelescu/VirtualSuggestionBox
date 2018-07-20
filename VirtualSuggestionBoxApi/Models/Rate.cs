@@ -7,20 +7,13 @@ namespace VirtualSuggestionBoxApi.Models
 {
     public class Rate
     {
-        private int score;
-        private String feedback;
-        private String employeeId;
+        public int Score;
+        public String Feedback;
 
-        public Rate(int score, string feedback, string employeeId)
+        public Rate(int score, string feedback)
         {
-            this.score = score;
-            this.feedback = feedback;
-            this.employeeId = employeeId;
-        }
-
-        public int GetScore()
-        {
-            return score;
+            Score = score;
+            Feedback = feedback;
         }
     }
 }
