@@ -16,7 +16,7 @@ import { CategoryComponent } from './category/category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { SuggestionService } from './_services/suggestion.service';
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
   { path: 'login', component: LoginComponent },
@@ -50,7 +50,7 @@ const appRoutes: Routes = [
     )
   ],
 
-  providers: [AppComponent],
+  providers: [AppComponent,SuggestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
