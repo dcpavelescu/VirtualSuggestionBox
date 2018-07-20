@@ -4,27 +4,31 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Suggestion } from '../_models/Suggestion';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class SuggestionService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<Suggestion[]>(`${environment.apiUrl}/suggestion`);
+    console.log(environment);
+    return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion`);
   }
   getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/suggestion/` + id);
+    return this.http.get(`${environment.apiUrl}/api/suggestion/` + id);
   }
 
   add(suggestion: Suggestion) {
-    return this.http.post(`${environment.apiUrl}/suggestion/register`, suggestion);
+    return this.http.post(`${environment.apiUrl}/api/suggestion/register`, suggestion);
   }
 
   update(suggestion: Suggestion) {
-    return this.http.put(`${environment.apiUrl}/suggestion/` + suggestion.id, suggestion);
+    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.id, suggestion);
   }
 
   delete(id: number) {
-    return this.http.delete(`${environment.apiUrl}/suggestion/` + id);
+    return this.http.delete(`${environment.apiUrl}/api/suggestion/` + id);
   }
 
 }
