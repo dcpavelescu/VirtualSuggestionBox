@@ -1,0 +1,21 @@
+<div class="container">
+
+  <div class="col">
+    <h1> Top 3</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Improvement</th>
+          <th scope="col">Solution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let suggestion of suggestions" scope="row">
+          <td>{{suggestion.improvement}}</td>
+          <td>{{suggestion.solution}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

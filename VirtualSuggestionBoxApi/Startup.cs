@@ -78,6 +78,8 @@ namespace VirtualSuggestionBoxApi
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "api/{controller}/{id}");
+                // routes.MapRoute("top3", "{*url}", defaults: new { controller = "Suggestion", action = "top3" });
+                routes.MapRoute(name: "top3", template: "api/suggestion/top3");
             });
         }
     }

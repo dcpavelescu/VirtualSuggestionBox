@@ -17,11 +17,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SuggestionService } from './_services/suggestion.service';
+import { Top3Component } from './top3/top3.component';
+
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'top3', component: Top3Component },
 ];
 
 @NgModule({
@@ -36,7 +39,8 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     CategoryComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    Top3Component
   ],
   imports: [
     BrowserModule,
