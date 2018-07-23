@@ -1,1 +1,7 @@
-<b>Suggestions</b>
+<h3>The suggestions are:</h3>
+<ul>
+    <li *ngFor="let suggestion of suggestions">
+        {{suggestion.improvement}} ({{suggestion.solution}} {{suggestion.date}} {{suggestion.ratings}} {{suggestion.category}})
+        - <a (click)="deleteSuggestion(suggestion.id)" class="text-danger">Delete</a>
+    </li>
+</ul>
