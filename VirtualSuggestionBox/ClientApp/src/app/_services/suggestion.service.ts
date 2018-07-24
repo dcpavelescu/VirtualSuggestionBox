@@ -23,6 +23,7 @@ export class SuggestionService {
   getAll(): Observable<Suggestion[]> {
     return this.http.get<Suggestion[]>(this.serviceURL);
   }
+
   getById(id: number) {
     return this.http.get(this.serviceURL + id);
   }
@@ -40,4 +41,7 @@ export class SuggestionService {
     return this.http.delete(this.serviceURL + id);
   }
 
+  getTop3(): Observable<Suggestion[]> {
+    return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion/top3`);
+  }
 }

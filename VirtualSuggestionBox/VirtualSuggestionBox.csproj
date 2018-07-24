@@ -126,6 +126,10 @@
     <None Include="ClientApp\src\app\registration\registration.component.html" />
     <None Include="ClientApp\src\app\registration\registration.component.spec.ts" />
     <None Include="ClientApp\src\app\registration\registration.component.ts" />
+    <None Include="ClientApp\src\app\top3\top3.component.css" />
+    <None Include="ClientApp\src\app\top3\top3.component.html" />
+    <None Include="ClientApp\src\app\top3\top3.component.spec.ts" />
+    <None Include="ClientApp\src\app\top3\top3.component.ts" />
     <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.css" />
     <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.html" />
     <None Include="ClientApp\src\app\suggestion-details\suggestion-details.component.spec.ts" />
