@@ -20,17 +20,6 @@
           <input type="text" class="form-control" id="sol" [(ngModel)]="suggestion.solution" name="suggestionSolution" required>
         </div>
 
-        <div class="form-group">
-          <label>Category</label>
-          <select class="form-control" id="select" [(ngModel)]="suggestion.category" name="suggestionCategory" required>
-            <option disabled>Select one category</option>
-            <option>Company</option>
-            <option>Products</option>
-            <option>Remuneration</option>
-            <option>Ideas</option>
-          </select>
-        </div>
-
         <button type="button" class="button" (click)="save()"><span>Submit</span></button>
       </form>
       <br />

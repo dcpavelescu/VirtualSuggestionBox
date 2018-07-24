@@ -5,16 +5,14 @@ import { environment } from '../../environments/environment';
 import { Suggestion } from '../_models/Suggestion';
 import { Observable } from 'rxjs';
 
-
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class SuggestionService {
   constructor(private http: HttpClient) { }
 
@@ -23,25 +21,20 @@ export class SuggestionService {
   getAll(): Observable<Suggestion[]> {
     return this.http.get<Suggestion[]>(this.serviceURL);
   }
-
   getById(id: number) {
-    return this.http.get(this.serviceURL + id);
+    return this.http.get(`${environment.apiUrl}/api/suggestion/` + id);
   }
 
-  add(suggestion: Suggestion): Observable<Suggestion> {
-    return this.http.post<Suggestion>(this.serviceURL, suggestion, httpOptions);
+  add(suggestion: Suggestion) {
+    return this.http.post(this.serviceURL, suggestion, httpOptions);
   }
-
 
   update(suggestion: Suggestion) {
-    return this.http.put<Suggestion>(this.serviceURL + suggestion.id, suggestion, httpOptions);
+    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.id, suggestion);
   }
 
   delete(id: number) {
-    return this.http.delete(this.serviceURL + id);
+    return this.http.delete(`${environment.apiUrl}/api/suggestion/` + id);
   }
 
-  getTop3(): Observable<Suggestion[]> {
-    return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion/top3`);
-  }
 }

@@ -62,9 +62,9 @@ namespace VirtualSuggestionBoxApi.Controllers
         }
 
 
-    // POST: api/Suggestion
-    [HttpPost]
-        public ActionResult Post([FromBody] Suggestion a)
+        // POST: api/Suggestion
+        [HttpPost]
+        public ActionResult Post(Suggestion a)
         {
             _db.Add(a);
             return Ok();

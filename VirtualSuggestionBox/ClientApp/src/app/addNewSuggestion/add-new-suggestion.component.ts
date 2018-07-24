@@ -11,9 +11,9 @@ import { Location } from '@angular/common';
 
 export class AddNewSuggestionComponent implements OnInit {
   suggestion: Suggestion;
-  private location: Location;
-
-  constructor(private suggestionService: SuggestionService) { }
+  
+  constructor(private suggestionService: SuggestionService,
+    private location: Location) { }
 
   public save():void {
     console.log(this.suggestion);

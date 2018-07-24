@@ -14,7 +14,7 @@ export class Top3Component implements OnInit {
   constructor(private suggestionService: SuggestionService){}
 
   ngOnInit() {
-    this.suggestionService.getTop3().subscribe(suggestions => this.suggestions = suggestions);
+    //this.suggestionService.getTop3().subscribe(suggestions => this.suggestions = suggestions);
   }
 
 }
