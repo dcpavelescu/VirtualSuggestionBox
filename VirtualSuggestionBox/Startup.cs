@@ -39,8 +39,8 @@ namespace VirtualSuggestionBox
             {
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
+            //app.UseHttpsRedirection();
+            //app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
@@ -50,7 +50,7 @@ namespace VirtualSuggestionBox
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:27003");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }
