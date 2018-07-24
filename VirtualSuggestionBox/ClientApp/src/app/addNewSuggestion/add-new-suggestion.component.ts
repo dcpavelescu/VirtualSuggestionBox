@@ -1,8 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Suggestion } from '../_models/Suggestion';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Http, Response } from '@angular/http';
+import { SuggestionService } from '../_services/suggestion.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-new-suggestion',
@@ -10,22 +9,22 @@ import { Http, Response } from '@angular/http';
   styleUrls: ['./add-new-suggestion.component.css']
 })
 
-@Injectable()
 export class AddNewSuggestionComponent implements OnInit {
-  /**suggestion: Suggestion[];
-  apiURL = 'https://localhost:44361/api/suggestion';
+  suggestion: Suggestion;
+  private location: Location;
 
-  Suggestion: Observable<Suggestion[]>; 
+  constructor(private suggestionService: SuggestionService) { }
 
-  constructor(private httpClient: HttpClient) { }
-
-  getSuggestion() {
-    return this.httpClient.get<Suggestion[]>(this.apiURL)
+  public save():void {
+    console.log(this.suggestion);
+    this.suggestionService.add(this.suggestion).subscribe(() => this.goBack());
   }
 
-
+  goBack(): void {
+    this.location.back();
+  }
+    
   ngOnInit() {
-    this.getSuggestion().subscribe(suggestion => this.suggestion = suggestion);
-  }**/
-  ngOnInit() { }
+    this.suggestion = new Suggestion();
+  }
 }

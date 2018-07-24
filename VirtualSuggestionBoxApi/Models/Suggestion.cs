@@ -10,7 +10,8 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace VirtualSuggestionBoxApi.Models
 {
     public class Suggestion : BaseEntity
-    {      
+    {
+        public String Subject;
         public String Improvement;
         public String Solution;
         public DateTime Date;

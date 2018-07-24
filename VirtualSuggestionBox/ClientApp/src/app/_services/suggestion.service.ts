@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { Suggestion } from '../_models/Suggestion';
 import { Observable } from 'rxjs';
 
+
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class SuggestionService {
   constructor(private http: HttpClient) { }
 
@@ -18,19 +24,20 @@ export class SuggestionService {
     return this.http.get<Suggestion[]>(this.serviceURL);
   }
   getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/api/suggestion/` + id);
+    return this.http.get(this.serviceURL + id);
   }
 
-  add(suggestion: Suggestion) {
-    return this.http.post(`${environment.apiUrl}/api/suggestion/register`, suggestion);
+  add(suggestion: Suggestion): Observable<Suggestion> {
+    return this.http.post<Suggestion>(this.serviceURL, suggestion, httpOptions);
   }
+
 
   update(suggestion: Suggestion) {
-    return this.http.put(`${environment.apiUrl}/api/suggestion/` + suggestion.id, suggestion);
+    return this.http.put<Suggestion>(this.serviceURL + suggestion.id, suggestion, httpOptions);
   }
 
   delete(id: number) {
-    return this.http.delete(`${environment.apiUrl}/api/suggestion/` + id);
+    return this.http.delete(this.serviceURL + id);
   }
 
 }
