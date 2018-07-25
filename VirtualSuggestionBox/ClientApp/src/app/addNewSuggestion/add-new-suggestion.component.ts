@@ -9,15 +9,22 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-new-suggestion.component.css']
 })
 
+
 export class AddNewSuggestionComponent implements OnInit {
   suggestion: Suggestion;
-  
+  list: [string];
+
   constructor(private suggestionService: SuggestionService,
     private location: Location) { }
 
   public save():void {
     console.log(this.suggestion);
     this.suggestionService.add(this.suggestion).subscribe(() => this.goBack());
+  }
+
+  public funct(value: string): void {
+    this.list.push(value);
+    this.suggestion.categories = this.list;
   }
 
   goBack(): void {

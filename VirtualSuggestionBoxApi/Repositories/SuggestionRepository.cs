@@ -67,7 +67,7 @@ namespace VirtualSuggestionBoxApi.Repositories
 
         public List<Suggestion> ViewByCategory(String c)
         {
-            return suggestionStorage.GetAll().Where( x => x.Category.Contains(c) ).ToList();
+            return suggestionStorage.GetAll().Where( x => x.Categories.Contains(c) ).ToList();
         }
 
     }

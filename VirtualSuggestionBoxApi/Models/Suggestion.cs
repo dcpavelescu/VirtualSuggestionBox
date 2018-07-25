@@ -16,13 +16,13 @@ namespace VirtualSuggestionBoxApi.Models
         public String Solution;
         public DateTime Date;
         public List<Rate> Ratings;
-        public List<String> Category;
+        public List<String> Categories;
         private Double avgRate;
 
         public Suggestion(string improvement, string solution)
         {
             Ratings = new List<Rate>();
-            Category = new List<String>();
+            Categories = new List<String>();
             Improvement = improvement;
             Solution = solution;
             Date = DateTime.Now;

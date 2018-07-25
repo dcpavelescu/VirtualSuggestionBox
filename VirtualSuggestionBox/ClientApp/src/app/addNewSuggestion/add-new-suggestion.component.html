@@ -6,7 +6,7 @@
       <form>
 
         <div class="form-group">
-          <label>Subject:</label>      
+          <label>Subject:</label>
           <input type="text" class="form-control" id="sub" [(ngModel)]="suggestion.subject" name="suggestionSubject" required>
         </div>
 
@@ -19,6 +19,14 @@
           <label>Solution:</label>
           <input type="text" class="form-control" id="sol" [(ngModel)]="suggestion.solution" name="suggestionSolution" required>
         </div>
+
+        <label>Category:</label><br />
+        Ideea: <input type="checkbox" name="category1" value="ideea" (checked)="funct(value)" /><br />
+        Bussines: <input type="checkbox" name="category2" value="bussines" (checked)="funct(value)" /><br />
+        Products: <input type="checkbox" name="category3" value="products" (checked)="funct(value)" /><br />
+        Complaint: <input type="checkbox" name="category4" value="complaint" (checked)="funct(value)" /><br />
+        Process improvement: <input type="checkbox" name="category5" value="processimprovement" (checked)="funct(value)" /><br />
+      
 
         <button type="button" class="button" (click)="save()"><span>Submit</span></button>
       </form>

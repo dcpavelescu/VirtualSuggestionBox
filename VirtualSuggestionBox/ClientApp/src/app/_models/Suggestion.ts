@@ -6,6 +6,6 @@ export class Suggestion {
   solution: string;
   date: Date;
   ratings: Rate[];
-  category: string[];
+  categories: string[];
   id: string;
 }
