@@ -1,0 +1,39 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Search by Rate and Category</h1>
+    <div class="text-and-textareas">
+      <br/>
+      <div class="search-container">
+        <form>
+
+          <p>
+            <input type="radio" name="selectSearchType" value="byAvgRate" checked />
+            Search suggestions with an average rate greater than:
+            <input type="number" name="selectAvgRate" min="1" max="4" value="4">
+          </p>
+
+          <p>
+            <input type="radio" name="selectSearchType" value="byCategory" checked />
+            Search suggestions by category:<br />
+            <input type="checkbox" name="category1" value="ideea" />Ideea<br />
+            <input type="checkbox" name="category2" value="bussines"  />Bussines<br />
+            <input type="checkbox" name="category3" value="products"  />Products<br />
+            <input type="checkbox" name="category4" value="complaint" />Complaint<br />
+            <input type="checkbox" name="category5" value="processimprovement" />Process improvement<br />
+          </p>
+
+          <p>
+            <button type="submit">Search</button>
+          </p>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</body>
+

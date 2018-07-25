@@ -41,6 +41,8 @@
 
   <ItemGroup>
     <None Remove="%2a%2a/%2a" />
+    <None Remove="ClientApp\src\app\search-by-rate-category\search-by-rate-category.component.spec.ts" />
+    <None Remove="ClientApp\src\app\search-by-rate-category\search-by-rate-category.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -126,6 +128,10 @@
     <None Include="ClientApp\src\app\registration\registration.component.html" />
     <None Include="ClientApp\src\app\registration\registration.component.spec.ts" />
     <None Include="ClientApp\src\app\registration\registration.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\search-by-rate-category\search-by-rate-category.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\search-by-rate-category\search-by-rate-category.component.ts" />
+    <None Include="ClientApp\src\app\search-by-rate-category\search-by-rate-category.component.html" />
+    <None Include="ClientApp\src\app\search-by-rate-category\search-by-rate-category.component.css" />
     <None Include="ClientApp\src\app\top3\top3.component.css" />
     <None Include="ClientApp\src\app\top3\top3.component.html" />
     <None Include="ClientApp\src\app\top3\top3.component.spec.ts" />

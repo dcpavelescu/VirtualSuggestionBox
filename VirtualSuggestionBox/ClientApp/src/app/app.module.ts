@@ -18,12 +18,14 @@ import { RegistrationComponent } from './registration/registration.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SuggestionService } from './_services/suggestion.service';
 import { Top3Component } from './top3/top3.component';
+import { SearchByRateCategoryComponent } from './search-by-rate-category/search-by-rate-category.component';
 
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'search-by-rate-category', component: SearchByRateCategoryComponent },
   { path: 'top3', component: Top3Component },
 ];
 
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     CategoryComponent,
     RegistrationComponent,
-    Top3Component
+    Top3Component,
+    SearchByRateCategoryComponent
   ],
   imports: [
     BrowserModule,
