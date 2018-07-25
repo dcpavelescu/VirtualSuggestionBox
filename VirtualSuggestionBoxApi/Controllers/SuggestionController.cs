@@ -25,7 +25,6 @@ namespace VirtualSuggestionBoxApi.Controllers
         Suggestion s11 = new Suggestion("improv11", "sol11");
         Suggestion s12 = new Suggestion("improv12", "sol12");
         Suggestion s13 = new Suggestion("improv13", "sol13");
-
         public SuggestionController(IStorage <Suggestion> _db)
         {
             this._db = _db;
@@ -33,8 +32,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         }
 
         //  GET: api/Suggestion
-        // [HttpGet]
-        public IEnumerable<Suggestion> Get()
+        private IEnumerable<Suggestion> Get()
         {
 
             return new List<Suggestion> { s8, s9, s10, s11, s12, s13 };
@@ -50,14 +48,19 @@ namespace VirtualSuggestionBoxApi.Controllers
             return suggestion;
         }
 
-        //  [HttpGet("top3")]
-        //  [Route("api/suggestion/top3")]
-        //  [Route("api/[controller]/top3")]
-        [HttpGet("top3")]
-        public List<Suggestion> GetTop3()
+
+        [HttpGet("{topBestRated?}")]
+        public IEnumerable<Suggestion> GetTop3([FromQuery]int? topBestRated = null)
         {
-            SuggestionRepository repository = new SuggestionRepository(_db);
-            return  repository.ViewTop3();
+
+            s8.boostRateForTesting(1);
+            s9.boostRateForTesting(123);
+            s10.boostRateForTesting(134);
+            s11.boostRateForTesting(332);
+
+            if (topBestRated == null)
+                return Get();
+            return Get().OrderBy(x => x.GetAvgRate()).Take(topBestRated.Value);
 
         }
 

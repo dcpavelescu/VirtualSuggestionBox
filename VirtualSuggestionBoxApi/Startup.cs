@@ -77,7 +77,7 @@ namespace VirtualSuggestionBoxApi
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "default", template: "api/{controller}/{id}");
+                routes.MapRoute(name: "default", template: "api/{controller}/{id?}");
             });
         }
     }

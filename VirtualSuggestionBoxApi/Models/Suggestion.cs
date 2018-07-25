@@ -38,6 +38,10 @@ namespace VirtualSuggestionBoxApi.Models
             double media = Ratings.Select( x => x.Score).Sum();
             avgRate = media / Ratings.Count();
         }
+        public void boostRateForTesting(int n)
+        {
+            avgRate = n;
+        }
 
     }
 }

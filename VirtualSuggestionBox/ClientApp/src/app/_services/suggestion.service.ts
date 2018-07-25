@@ -36,5 +36,7 @@ export class SuggestionService {
   delete(id: number) {
     return this.http.delete(`${environment.apiUrl}/api/suggestion/` + id);
   }
-
+  topBestRated(id: number):Observable<Suggestion[]> {
+    return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion?topBestRated=` + id);
+  }
 }

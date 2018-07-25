@@ -2,20 +2,22 @@
 
   <div class="col">
     <a routerLink="/new">Add Suggestion</a>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Improvement</th>
-          <th scope="col">Solution</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="table-responsive">  
+      <table class="table table-bordred table-striped">
+          <thead>
+          <th>Improvement</th>
+          <th>Subject</th>
+          <th>Solution</th>
+          <th>Score</th>
+          </thead>
+        <tbody>
         <tr *ngFor="let suggestion of suggestions" scope="row">
           <td>{{suggestion.improvement}}</td>
+          <td>{{suggestion.subject}}</td>
           <td>{{suggestion.solution}}</td>
+          <td>{{calculateAverage(suggestion)}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-
