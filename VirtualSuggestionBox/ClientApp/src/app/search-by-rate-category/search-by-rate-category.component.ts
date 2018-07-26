@@ -13,24 +13,20 @@ import { Location } from '@angular/common';
 export class SearchByRateCategoryComponent implements OnInit {
 
   private suggestions: Suggestion[];
-  private allSuggestions: Suggestion[];
+
+  // aici ar trebui sa fie datele din formular in loc de aceste atribute declarate
+  private Categories: string[];
+  private AvgRate: number;
 
   constructor( private suggestionService: SuggestionService, private location: Location) { }
   
-  public searchByAvgRate(): void {
-    //this.suggestionService.getAll().subscribe(res => this.allSuggestions = res);
-  }
-
-  public searchByCategory(): void {
-    //this.suggestionService.getAll().subscribe(res => this.allSuggestions = res);
-  }
 
   goBack(): void {
     this.location.back();
   }
   
   ngOnInit() {
-
+    this.suggestionService.searchSuggestions(this.Categories, this.AvgRate).subscribe(suggestions => this.suggestions = suggestions);
   }
   
 }

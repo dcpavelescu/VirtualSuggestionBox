@@ -249,5 +249,42 @@ namespace VisualSuggestionBoxTest
             */
         }
 
+        [TestMethod]
+        public void TestSearch()
+        {
+            Suggestion s31 = new Suggestion("improv1", "sol1");
+            Suggestion s32 = new Suggestion("improv2", "sol2");
+            Suggestion s33 = new Suggestion("improv3", "sol3");
+
+            s31.boostRateForTesting(4);
+            s32.boostRateForTesting(4);
+            s33.boostRateForTesting(5);
+
+            s31.Categories = new List<String> { "cat1", "cat2", "cat3" };
+            s32.Categories = new List<String> { "cat1", "cat2", "cat3" };
+            s33.Categories = new List<String> { "cat1", "cat2" };
+
+            repository.Add(s31);
+            repository.Add(s32);
+            repository.Add(s33);
+
+
+            List<Suggestion> testList = repository.Search(new List<String> { "cat1", "cat2", "cat3" }, 4 );
+
+            Assert.AreEqual( 3, testList.Count() );
+
+            List<Suggestion> list = new List<Suggestion> { s31, s32, s33 };
+
+            for (var i = 0; i < list.Count(); i++)
+            {
+                Assert.AreEqual(testList[i], list[i]);
+            }
+
+            repository.RemoveAll();
+            testList.Clear();
+            list.Clear();
+
+        }
+
     }
 }

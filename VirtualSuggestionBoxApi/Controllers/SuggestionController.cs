@@ -25,6 +25,7 @@ namespace VirtualSuggestionBoxApi.Controllers
         Suggestion s11 = new Suggestion("improv11", "sol11");
         Suggestion s12 = new Suggestion("improv12", "sol12");
         Suggestion s13 = new Suggestion("improv13", "sol13");
+
         public SuggestionController(IStorage <Suggestion> _db)
         {
             this._db = _db;
@@ -61,6 +62,30 @@ namespace VirtualSuggestionBoxApi.Controllers
             if (topBestRated == null)
                 return Get();
             return Get().OrderBy(x => x.GetAvgRate()).Take(topBestRated.Value);
+
+        }
+
+        // aici nu stiu exact cum trebuie definiti parametrii
+        [HttpGet("{Categories} + {AvgRate}")]
+        public IEnumerable<Suggestion> Search( List<String> Categories, double AvgRate )
+        {
+
+            IEnumerable<Suggestion> list = Get().Where( x => x.GetAvgRate() >= AvgRate );
+            List<Suggestion> searchList = new List<Suggestion>();
+
+            foreach (Suggestion suggestion in list)
+            {
+                foreach (String category in Categories)
+                {
+                    if (suggestion.Categories.Contains(category))
+                    {
+                        searchList.Add(suggestion);
+                        break;
+                    }
+                }
+            }
+
+            return searchList;
 
         }
 

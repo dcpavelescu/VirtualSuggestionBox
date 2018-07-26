@@ -70,6 +70,29 @@ namespace VirtualSuggestionBoxApi.Repositories
             return suggestionStorage.GetAll().Where( x => x.Categories.Contains(c) ).ToList();
         }
 
+        public List<Suggestion> Search( List<String> Categories, double AvgRate )
+        {
+
+            List<Suggestion> res = new List<Suggestion>();
+
+            List<Suggestion> list =  suggestionStorage.GetAll().Where( x => x.GetAvgRate() >= AvgRate ).ToList();
+
+            foreach ( Suggestion suggestion in list )
+            {
+                foreach ( String category in Categories )
+                {
+                    if (suggestion.Categories.Contains(category) )
+                    {
+                        res.Add(suggestion);
+                        break;
+                    }
+                }
+            }
+
+            return res;
+           
+        }
+
     }
 }
     
