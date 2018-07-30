@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\AccountController.cs" />
+    <Compile Remove="obj\**" />
+    <Content Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="bin\Debug\netcoreapp2.1\" />
+    <Folder Include="bin\Release\netcoreapp2.1\" />
     <Folder Include="Connected Services\" />
     <Folder Include="Views\" />
     <Folder Include="wwwroot\" />

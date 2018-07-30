@@ -46,5 +46,9 @@ export class SuggestionService {
   searchSuggestions(Categories: string[], AvgRate: number): Observable<Suggestion[]> {
     return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion?search=` + Categories + AvgRate);
   }
+
+  getRecent(): Observable<Suggestion[]> {
+    return this.http.get<Suggestion[]>(`${environment.apiUrl}/api/suggestion?recentFive`);
+  }
   
 }

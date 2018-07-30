@@ -128,5 +128,11 @@ namespace VirtualSuggestionBoxApi.Controllers
             return Ok();
         }
 
+        [HttpGet("{recentFive}")]
+        public IEnumerable<Suggestion> GetRecent()
+        {
+            return Get().TakeLast(5);
+        }
+
     }
 }

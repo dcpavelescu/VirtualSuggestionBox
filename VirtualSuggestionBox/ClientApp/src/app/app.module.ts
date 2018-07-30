@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SuggestionService } from './_services/suggestion.service';
 import { Top3Component } from './top3/top3.component';
 import { SearchByRateCategoryComponent } from './search-by-rate-category/search-by-rate-category.component';
+import { RecentSuggestionComponent } from './recentSuggestion/recent-suggestion.component';
 
 const appRoutes: Routes = [
   { path: 'add-new-suggestion', component: AddNewSuggestionComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'search-by-rate-category', component: SearchByRateCategoryComponent },
   { path: 'top3', component: Top3Component },
+  { path: 'recent', component: RecentSuggestionComponent },
 ];
 
 @NgModule({
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     CategoryComponent,
     RegistrationComponent,
     Top3Component,
-    SearchByRateCategoryComponent
+    SearchByRateCategoryComponent,
+    RecentSuggestionComponent
   ],
   imports: [
     BrowserModule,

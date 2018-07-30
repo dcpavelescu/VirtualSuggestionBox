@@ -1,0 +1,25 @@
+<h1 align="center">Recent Suggestions</h1>
+<br />
+
+<div class="container">
+
+  <div class="col">
+    <div class="table-responsive">
+      <table class="table table-bordred table-striped">
+        <thead>
+          <th>Improvement</th>
+          <th>Subject</th>
+          <th>Solution</th>
+          <th>Score</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let suggestion of suggestions" scope="row">
+            <td>{{suggestion.improvement}}</td>
+            <td>{{suggestion.subject}}</td>
+            <td>{{suggestion.solution}}</td>
+            <td>{{calculateAverage(suggestion)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
